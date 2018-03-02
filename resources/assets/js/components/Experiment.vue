@@ -45,7 +45,7 @@
             return {
                 images: [],
                 path: '',
-                folder: 'images/CIDIQ/images/reproduction/',
+                folder: 'images/CIDIQ/Images/Reproduction/',
                 compressionType: '2_JPEG_Compression',
 
                 answers: [],
