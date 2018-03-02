@@ -2,14 +2,14 @@
     <div>
         <div class="flex-center position-ref full-height">
             <div class="top-bar">
-                <span>{{ results }} / {{ total }}</span>
+                <button @click="showInfo()" class="info__btn" title="Information">
+                    <img src="icons/info.png" style="width: 25px;">
+                </button>
+                
+                <div style="display: flex; align-items: center;">
+                    <span>{{ results }} / {{ total }}</span>
 
-                <div>
-                    <button @click="showInfo()" class="info__btn">
-                        <img src="icons/info.png" style="width: 25px;">
-                    </button>
-
-                    <button @click="goFullscreen()" class="fullscreen__btn">
+                    <button @click="goFullscreen()" class="fullscreen__btn" title="Fullscreen mode">
                         <img src="icons/fullscreen.png" style="width: 25px;">
                     </button>
                 </div>
@@ -48,7 +48,7 @@
                 folder: 'images/CIDIQ/Images/Reproduction/',
                 compressionType: '2_JPEG_Compression',
 
-                answers: [],
+                // answers: [],
                 results: 0,
                 total: 100,
 
@@ -56,7 +56,9 @@
                     show: false,
                     message: '',
                     header: ''
-                }
+                },
+
+                fullscreen: false
             }
         },
 
@@ -76,32 +78,36 @@
             submitAnswer(rating) {
                 let vm = this
 
-                var result = {
+                var answ = {
                     answer: rating,
                     image: this.path,
                     subject: window.localStorage.getItem('id')
                 }
+                
+                this.results++
 
-                axios.post('answer/store', result).then(function (response) {
-                    if (response.data == 'saved') {
-                        vm.results++
-                        
-                        if (vm.results == vm.total) {
-                            vm.modal.header = 'You have completed ' + vm.total + ' images!'
-                            vm.modal.message = `
-                                It would be greatly appreciated if you would do even more.
-                                You can quit at any time, results gets continually saved!'
-                            `
-                            vm.modal.show = true
-                            vm.total += 50
-                            vm.changeImage()
-                        } else {
-                            vm.changeImage()
+                if (this.results > 3) { // do not save the first 3 images
+                    axios.post('answer/store', answ).then(function (response) {
+                        if (response.data == 'saved') {
+                            
+                            if (vm.results == vm.total) {
+                                vm.modal.header = 'You have completed ' + vm.total + ' images!'
+                                vm.modal.message = `
+                                    It would be greatly appreciated if you would do even more.
+                                    You can quit at any time, by simply closing the browser tab!'
+                                `
+                                vm.modal.show = true
+                                vm.total += 50
+
+                                vm.changeImage()
+                            } else {
+                                vm.changeImage()
+                            }
                         }
-                    }
-                }).catch(function (error) {
-                    console.log(error)
-                })
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                }
             },
 
             changeImage() {
@@ -114,33 +120,46 @@
             showInfo() {
                 this.modal.header = 'About'
                 this.modal.message = `
-                    <p>
-                        Rate the quality of the images by selecting 1 of the 5 categories.<br>
-                        The first 4 images are training images and will not count.
-                    </p>
-                    <p>It would be beneficial if:</p>
-                    <ul>
+                    <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
+                    <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>
+                    
+                    <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>
+                    <ul style="margin-top: 0; font-size: 15px;">
                         <li>You turn up the brightness of your screen as high as possible.</li>
-                        <li>When you're ready, enter full screen mode in your browser by hitting the
-                        button in the right corner.</li>
+                        <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>
                     </ul>
                 `
                 this.modal.show = true
             },
 
             goFullscreen() {
-                var elem = document.querySelector("html")
+                if (this.fullscreen == false) {
+                    var elem = document.documentElement
 
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen()
-                } else if (elem.msRequestFullscreen) {
-                    elem.msRequestFullscreen()
-                } else if (elem.mozRequestFullScreen) {
-                    elem.mozRequestFullScreen()
-                } else if (elem.webkitRequestFullscreen) {
-                    elem.webkitRequestFullscreen()
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen()
+                    } else if (elem.msRequestFullscreen) {
+                        elem.msRequestFullscreen()
+                    } else if (elem.mozRequestFullScreen) {
+                        elem.mozRequestFullScreen()
+                    } else if (elem.webkitRequestFullscreen) {
+                        elem.webkitRequestFullscreen()
+                    }
+
+                    this.fullscreen = true
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen()
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen()
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen()
+                    }
+
+                    this.fullscreen = false
                 }
-            }   
+            }
+
         },
 
         mounted() {
@@ -157,18 +176,15 @@
                 })
             }
 
-            this.modal.header = 'Welcome'
+            this.modal.header = 'Thanks for participating in this experiment!'
             this.modal.message = `
-                <p>
-                    Thanks for participating in this experiment!<br>
-                    Rate the quality of the images by selecting 1 of the 5 categories.<br>
-                    The first 4 images are training images and will not count.
-                </p>
-                <p>It would be beneficial if:</p>
-                <ul>
+                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
+                <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>
+                
+                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>
+                <ul style="margin-top: 0; font-size: 15px;">
                     <li>You turn up the brightness of your screen as high as possible.</li>
-                    <li>Enter full screen mode in your browser by hitting the
-                    button in the right corner.</li>
+                    <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>
                 </ul>
             `
             this.modal.show = true
@@ -179,7 +195,7 @@
 <style scoped>
     .top-bar {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
         color: #000;
         font-weight: bold;
@@ -193,7 +209,6 @@
     }
 
     .info__btn {
-        margin-left: 40px;
         padding: 2px;
         font-weight: bold;
         background-color: #e1e1e1;
@@ -209,6 +224,7 @@
         border: none;
         outline: 0;
         cursor: pointer;
+        margin-left: 40px;
     }
 
     .rating-bar {

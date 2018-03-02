@@ -20,6 +20,10 @@ Route::get('/results', function () {
     	->with( 'answers', App\Answer::all() );
 });
 
+Route::get('/really/weird/url', function () {
+    App\Answer::truncate();
+});
+
 Route::post('answer/store', 'AnswerController@store');
 
 Route::post('subject/store', 'SubjectController@store');

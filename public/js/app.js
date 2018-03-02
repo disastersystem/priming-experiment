@@ -47376,7 +47376,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.top-bar[data-v-26b44034] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    color: #000;\n    font-weight: bold;\n    padding: 20px;\n    position: fixed;\n    top: 0;\n    right: 0;\n    /*width: 50%;*/\n    left: 0;\n    z-index: 10;\n}\n.info__btn[data-v-26b44034] {\n    margin-left: 40px;\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n}\n.fullscreen__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n}\n.rating-bar[data-v-26b44034] {\n    position: fixed;\n    bottom: 0;\n    padding: 30px;\n    z-index: 10;\n}\n", ""]);
+exports.push([module.i, "\n.top-bar[data-v-26b44034] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    color: #000;\n    font-weight: bold;\n    padding: 20px;\n    position: fixed;\n    top: 0;\n    right: 0;\n    /*width: 50%;*/\n    left: 0;\n    z-index: 10;\n}\n.info__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n}\n.fullscreen__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n    margin-left: 40px;\n}\n.rating-bar[data-v-26b44034] {\n    position: fixed;\n    bottom: 0;\n    padding: 30px;\n    z-index: 10;\n}\n", ""]);
 
 // exports
 
@@ -47473,7 +47473,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             folder: 'images/CIDIQ/Images/Reproduction/',
             compressionType: '2_JPEG_Compression',
 
-            answers: [],
+            // answers: [],
             results: 0,
             total: 100,
 
@@ -47481,7 +47481,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 show: false,
                 message: '',
                 header: ''
-            }
+            },
+
+            fullscreen: false
         };
     },
 
@@ -47501,29 +47503,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitAnswer: function submitAnswer(rating) {
             var vm = this;
 
-            var result = {
+            var answ = {
                 answer: rating,
                 image: this.path,
                 subject: window.localStorage.getItem('id')
             };
 
-            axios.post('answer/store', result).then(function (response) {
-                if (response.data == 'saved') {
-                    vm.results++;
+            this.results++;
 
-                    if (vm.results == vm.total) {
-                        vm.modal.header = 'You have completed ' + vm.total + ' images!';
-                        vm.modal.message = '\n                            It would be greatly appreciated if you would do even more.\n                            You can quit at any time, results gets continually saved!\'\n                        ';
-                        vm.modal.show = true;
-                        vm.total += 50;
-                        vm.changeImage();
-                    } else {
-                        vm.changeImage();
+            if (this.results > 3) {
+                // do not save the first 3 images
+                axios.post('answer/store', answ).then(function (response) {
+                    if (response.data == 'saved') {
+
+                        if (vm.results == vm.total) {
+                            vm.modal.header = 'You have completed ' + vm.total + ' images!';
+                            vm.modal.message = '\n                                It would be greatly appreciated if you would do even more.\n                                You can quit at any time, by simply closing the browser tab!\'\n                            ';
+                            vm.modal.show = true;
+                            vm.total += 50;
+
+                            vm.changeImage();
+                        } else {
+                            vm.changeImage();
+                        }
                     }
-                }
-            }).catch(function (error) {
-                console.log(error);
-            });
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
         },
         changeImage: function changeImage() {
             var randSetNum = this.getRandomInt(0, this.images.length);
@@ -47533,20 +47540,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         showInfo: function showInfo() {
             this.modal.header = 'About';
-            this.modal.message = '\n                <p>\n                    Rate the quality of the images by selecting 1 of the 5 categories.<br>\n                    The first 4 images are training images and will not count.\n                </p>\n                <p>It would be beneficial if:</p>\n                <ul>\n                    <li>You turn up the brightness of your screen as high as possible.</li>\n                    <li>When you\'re ready, enter full screen mode in your browser by hitting the\n                    button in the right corner.</li>\n                </ul>\n            ';
+            this.modal.message = '\n                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n                <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>\n                \n                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>\n                <ul style="margin-top: 0; font-size: 15px;">\n                    <li>You turn up the brightness of your screen as high as possible.</li>\n                    <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n                </ul>\n            ';
             this.modal.show = true;
         },
         goFullscreen: function goFullscreen() {
-            var elem = document.querySelector("html");
+            if (this.fullscreen == false) {
+                var elem = document.documentElement;
 
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.msRequestFullscreen) {
-                elem.msRequestFullscreen();
-            } else if (elem.mozRequestFullScreen) {
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen();
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                }
+
+                this.fullscreen = true;
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+
+                this.fullscreen = false;
             }
         }
     },
@@ -47565,8 +47586,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         }
 
-        this.modal.header = 'Welcome';
-        this.modal.message = '\n            <p>\n                Thanks for participating in this experiment!<br>\n                Rate the quality of the images by selecting 1 of the 5 categories.<br>\n                The first 4 images are training images and will not count.\n            </p>\n            <p>It would be beneficial if:</p>\n            <ul>\n                <li>You turn up the brightness of your screen as high as possible.</li>\n                <li>Enter full screen mode in your browser by hitting the\n                button in the right corner.</li>\n            </ul>\n        ';
+        this.modal.header = 'Thanks for participating in this experiment!';
+        this.modal.message = '\n            <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n            <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>\n            \n            <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>\n            <ul style="margin-top: 0; font-size: 15px;">\n                <li>You turn up the brightness of your screen as high as possible.</li>\n                <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n            </ul>\n        ';
         this.modal.show = true;
     }
 });
@@ -47672,7 +47693,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask[data-v-2c928174] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    -webkit-transition: opacity .3s ease;\n    transition: opacity .3s ease;\n}\n.modal-wrapper[data-v-2c928174] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-container[data-v-2c928174] {\n    width: 600px;\n    margin: 0px auto;\n    padding: 20px 30px;\n    background-color: #fff;\n    border-radius: 2px;\n    -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n            box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    -webkit-transition: all .3s ease;\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header[data-v-2c928174] {\n    margin-top: 0;\n    color: #42b983;\n}\n.modal-body[data-v-2c928174] {\n    margin: 20px 0;\n    line-height: 1.5em;\n}\n.modal-footer[data-v-2c928174] {\n    margin: 20px 0;\n    text-align: right;\n}\n.modal-default-button[data-v-2c928174] {\n    /*float: right;*/\n    padding: 12px 20px;\n    background: #ccc; /*rgb(80, 175, 0);*/\n    border: 0;\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask[data-v-2c928174] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    -webkit-transition: opacity .3s ease;\n    transition: opacity .3s ease;\n}\n.modal-wrapper[data-v-2c928174] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-container[data-v-2c928174] {\n    width: 600px;\n    margin: 0px auto;\n    padding: 20px 30px;\n    background-color: #fff;\n    border-radius: 2px;\n    -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n            box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    -webkit-transition: all .3s ease;\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header[data-v-2c928174] {\n    margin-top: 0;\n    color: #42b983;\n}\n.modal-body[data-v-2c928174] {\n    margin: 20px 0;\n    line-height: 1.5em;\n}\n.modal-footer[data-v-2c928174] {\n    margin: 60px 0 8px 0;\n    text-align: right;\n}\n.modal-default-button[data-v-2c928174] {\n    padding: 12px 20px;\n    background: rgb(66, 185, 131); /*rgb(80, 175, 0);*/\n    border: 0;\n    cursor: pointer;\n    color: #fff;\n    font-size: 17px;\n    letter-spacing: 1px;\n}\n", ""]);
 
 // exports
 
@@ -47746,45 +47767,53 @@ var render = function() {
     [
       _c("div", { staticClass: "flex-center position-ref full-height" }, [
         _c("div", { staticClass: "top-bar" }, [
-          _c("span", [_vm._v(_vm._s(_vm.results) + " / " + _vm._s(_vm.total))]),
+          _c(
+            "button",
+            {
+              staticClass: "info__btn",
+              attrs: { title: "Information" },
+              on: {
+                click: function($event) {
+                  _vm.showInfo()
+                }
+              }
+            },
+            [
+              _c("img", {
+                staticStyle: { width: "25px" },
+                attrs: { src: "icons/info.png" }
+              })
+            ]
+          ),
           _vm._v(" "),
-          _c("div", [
-            _c(
-              "button",
-              {
-                staticClass: "info__btn",
-                on: {
-                  click: function($event) {
-                    _vm.showInfo()
+          _c(
+            "div",
+            { staticStyle: { display: "flex", "align-items": "center" } },
+            [
+              _c("span", [
+                _vm._v(_vm._s(_vm.results) + " / " + _vm._s(_vm.total))
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "fullscreen__btn",
+                  attrs: { title: "Fullscreen mode" },
+                  on: {
+                    click: function($event) {
+                      _vm.goFullscreen()
+                    }
                   }
-                }
-              },
-              [
-                _c("img", {
-                  staticStyle: { width: "25px" },
-                  attrs: { src: "icons/info.png" }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "fullscreen__btn",
-                on: {
-                  click: function($event) {
-                    _vm.goFullscreen()
-                  }
-                }
-              },
-              [
-                _c("img", {
-                  staticStyle: { width: "25px" },
-                  attrs: { src: "icons/fullscreen.png" }
-                })
-              ]
-            )
-          ])
+                },
+                [
+                  _c("img", {
+                    staticStyle: { width: "25px" },
+                    attrs: { src: "icons/fullscreen.png" }
+                  })
+                ]
+              )
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "image-container" }, [

@@ -64,15 +64,17 @@
     }
 
     .modal-footer {
-        margin: 20px 0;
+        margin: 60px 0 8px 0;
         text-align: right;
     }
 
     .modal-default-button {
-        /*float: right;*/
         padding: 12px 20px;
-        background: #ccc; /*rgb(80, 175, 0);*/
+        background: rgb(66, 185, 131); /*rgb(80, 175, 0);*/
         border: 0;
         cursor: pointer;
+        color: #fff;
+        font-size: 17px;
+        letter-spacing: 1px;
     }
 </style>
