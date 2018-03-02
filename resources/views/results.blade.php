@@ -25,6 +25,7 @@
                     <td>{{ $answer->id }}</td>
                     <td>{{ $answer->image }}</td>
                     <td>{{ $answer->answer }}</td>
+                    <td>{{ $answer->subject }}</td>
                 </tr>
             @endforeach
         </table>
