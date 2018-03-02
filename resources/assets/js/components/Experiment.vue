@@ -50,7 +50,7 @@
 
                 answers: [],
                 results: 0,
-                total: 50,
+                total: 100,
 
                 modal: {
                     show: false,
@@ -115,7 +115,7 @@
                 this.modal.header = 'About'
                 this.modal.message = `
                     <p>
-                        Rate the images quality by selecting 1 of the 5 categories.<br>
+                        Rate the quality of the images by selecting 1 of the 5 categories.<br>
                         The first 4 images are training images and will not count.
                     </p>
                     <p>It would be beneficial if:</p>
@@ -160,8 +160,8 @@
             this.modal.header = 'Welcome'
             this.modal.message = `
                 <p>
-                    Thanks for participating in this experiment.<br>
-                    Rate the images quality by selecting 1 of the 5 categories.<br>
+                    Thanks for participating in this experiment!<br>
+                    Rate the quality of the images by selecting 1 of the 5 categories.<br>
                     The first 4 images are training images and will not count.
                 </p>
                 <p>It would be beneficial if:</p>

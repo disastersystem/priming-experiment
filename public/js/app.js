@@ -47475,7 +47475,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             answers: [],
             results: 0,
-            total: 50,
+            total: 100,
 
             modal: {
                 show: false,
@@ -47533,7 +47533,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         showInfo: function showInfo() {
             this.modal.header = 'About';
-            this.modal.message = '\n                <p>\n                    Rate the images quality by selecting 1 of the 5 categories.<br>\n                    The first 4 images are training images and will not count.\n                </p>\n                <p>It would be beneficial if:</p>\n                <ul>\n                    <li>You turn up the brightness of your screen as high as possible.</li>\n                    <li>When you\'re ready, enter full screen mode in your browser by hitting the\n                    button in the right corner.</li>\n                </ul>\n            ';
+            this.modal.message = '\n                <p>\n                    Rate the quality of the images by selecting 1 of the 5 categories.<br>\n                    The first 4 images are training images and will not count.\n                </p>\n                <p>It would be beneficial if:</p>\n                <ul>\n                    <li>You turn up the brightness of your screen as high as possible.</li>\n                    <li>When you\'re ready, enter full screen mode in your browser by hitting the\n                    button in the right corner.</li>\n                </ul>\n            ';
             this.modal.show = true;
         },
         goFullscreen: function goFullscreen() {
@@ -47566,7 +47566,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         this.modal.header = 'Welcome';
-        this.modal.message = '\n            <p>\n                Thanks for participating in this experiment.<br>\n                Rate the images quality by selecting 1 of the 5 categories.<br>\n                The first 4 images are training images and will not count.\n            </p>\n            <p>It would be beneficial if:</p>\n            <ul>\n                <li>You turn up the brightness of your screen as high as possible.</li>\n                <li>Enter full screen mode in your browser by hitting the\n                button in the right corner.</li>\n            </ul>\n        ';
+        this.modal.message = '\n            <p>\n                Thanks for participating in this experiment!<br>\n                Rate the quality of the images by selecting 1 of the 5 categories.<br>\n                The first 4 images are training images and will not count.\n            </p>\n            <p>It would be beneficial if:</p>\n            <ul>\n                <li>You turn up the brightness of your screen as high as possible.</li>\n                <li>Enter full screen mode in your browser by hitting the\n                button in the right corner.</li>\n            </ul>\n        ';
         this.modal.show = true;
     }
 });
