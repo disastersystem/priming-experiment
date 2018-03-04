@@ -47420,9 +47420,11 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Modal__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_functions_random__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_classes_Fullscreen__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Modal__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Modal__);
 //
 //
 //
@@ -47461,6 +47463,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+
+
 
 
 
@@ -47483,23 +47490,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 header: ''
             },
 
-            fullscreen: false
+            fullscreen: false,
+
+            fullsc: new __WEBPACK_IMPORTED_MODULE_1__core_classes_Fullscreen__["a" /* default */]()
         };
     },
 
 
     components: {
-        modal: __WEBPACK_IMPORTED_MODULE_1__components_Modal___default.a
+        modal: __WEBPACK_IMPORTED_MODULE_3__components_Modal___default.a
     },
 
     methods: {
-        getRandomInt: function getRandomInt(min, max) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
-
-            //the maximum is exclusive and the minimum is inclusive
-            return Math.floor(Math.random() * (max - min)) + min;
-        },
         submitAnswer: function submitAnswer(rating) {
             var vm = this;
 
@@ -47530,11 +47532,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }).catch(function (error) {
                     console.log(error);
                 });
+            } else {
+                vm.changeImage();
             }
         },
         changeImage: function changeImage() {
-            var randSetNum = this.getRandomInt(0, this.images.length);
-            var randImageNum = this.getRandomInt(0, this.images[randSetNum].length);
+            var randSetNum = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images.length);
+            var randImageNum = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images[randSetNum].length);
 
             this.path = this.folder + this.compressionType + '/' + this.images[randSetNum][randImageNum];
         },
@@ -47545,38 +47549,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         goFullscreen: function goFullscreen() {
             if (this.fullscreen == false) {
-                var elem = document.documentElement;
-
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.msRequestFullscreen) {
-                    elem.msRequestFullscreen();
-                } else if (elem.mozRequestFullScreen) {
-                    elem.mozRequestFullScreen();
-                } else if (elem.webkitRequestFullscreen) {
-                    elem.webkitRequestFullscreen();
-                }
-
+                this.fullsc.launch(document.documentElement);
                 this.fullscreen = true;
             } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                }
-
+                this.fullsc.exit();
                 this.fullscreen = false;
             }
         }
     },
 
     mounted: function mounted() {
-        this.images = __WEBPACK_IMPORTED_MODULE_0__data__["a" /* default */].images;
+        this.images = __WEBPACK_IMPORTED_MODULE_2__data__["a" /* default */].images;
 
-        var randSetNum = this.getRandomInt(0, this.images.length);
-        var randImageNum = this.getRandomInt(0, this.images[randSetNum].length);
+        var randSetNum = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images.length);
+        var randImageNum = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images[randSetNum].length);
 
         this.path = this.folder + this.compressionType + '/' + this.images[randSetNum][randImageNum];
 
@@ -47932,6 +47918,73 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    //the maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (getRandomInt);
+
+/***/ }),
+/* 62 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Fullscreen = function () {
+    function Fullscreen() {
+        _classCallCheck(this, Fullscreen);
+    }
+
+    _createClass(Fullscreen, [{
+        key: "launch",
+        value: function launch(elem) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            }
+        }
+    }, {
+        key: "exit",
+        value: function exit() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+    }]);
+
+    return Fullscreen;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Fullscreen);
 
 /***/ })
 /******/ ]);

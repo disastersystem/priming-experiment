@@ -1,0 +1,27 @@
+﻿
+IMPORTANT
+- double check Lande report
+- run through a set first, but the set is random?
+	- se på det han som lagde bildesettet gjorde
+- ta med original, ta med flere reproduksjonstyper
+
+- cache the last image to prevent the same image from appaering in a row
+OR
+- animate so that it's clear a new image has been loaded
+	- disable rating buttons while new image loads
+
+
+- npm run prod
+- fjerne public/images i gitignore
+
+Ekstra:
+	- Pause changing of image in background before showing modal
+		- wait with incrementing to 100 after they say yes to dialog
+	- Hide top bar after a while
+	- save total in localStorage, if they come back
+	- change post to put etc.
+
+Mail:
+	- Wording, does it make sense? Avoid priming here.
+	- Have all 5 levels of compression? Jeg tenker det kan være lurt å ha flere nivåer, altså bilder med mindre forskjell i mellom.
+	- Søke om å lagre data?

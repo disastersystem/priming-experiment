@@ -12,11 +12,14 @@
                     <button @click="goFullscreen()" class="fullscreen__btn" title="Fullscreen mode">
                         <img src="icons/fullscreen.png" style="width: 25px;">
                     </button>
+                    <!-- <fullscreen-button @show="fullscreen"></fullscreen-button> -->
                 </div>
             </div>
 
             <div class="image-container">
-                <img class="image" :src="path">
+                <!-- <transition name="modal"> -->
+                    <img class="image" :src="path">
+                <!-- </transition> -->
             </div>
 
             <div class="rating-bar">
@@ -37,6 +40,8 @@
 </template>
 
 <script>
+    import getRandomInt from '../core/functions/random'
+    import Fullscreen from '../core/classes/Fullscreen'
     import data from '../data'
     import modal from '../components/Modal'
 
@@ -58,7 +63,9 @@
                     header: ''
                 },
 
-                fullscreen: false
+                fullscreen: false,
+
+                fullsc: new Fullscreen
             }
         },
 
@@ -67,14 +74,6 @@
         },
 
         methods: {
-            getRandomInt(min, max) {
-                min = Math.ceil(min)
-                max = Math.floor(max)
-
-                //the maximum is exclusive and the minimum is inclusive
-                return Math.floor(Math.random() * (max - min)) + min
-            },
-
             submitAnswer(rating) {
                 let vm = this
 
@@ -107,12 +106,14 @@
                     }).catch(function (error) {
                         console.log(error)
                     })
+                } else {
+                    vm.changeImage()
                 }
             },
 
             changeImage() {
-                let randSetNum = this.getRandomInt(0, this.images.length)
-                let randImageNum = this.getRandomInt(0, this.images[randSetNum].length)
+                let randSetNum = getRandomInt(0, this.images.length)
+                let randImageNum = getRandomInt(0, this.images[randSetNum].length)
 
                 this.path = this.folder + this.compressionType + '/' + this.images[randSetNum][randImageNum]
             },
@@ -134,28 +135,10 @@
 
             goFullscreen() {
                 if (this.fullscreen == false) {
-                    var elem = document.documentElement
-
-                    if (elem.requestFullscreen) {
-                        elem.requestFullscreen()
-                    } else if (elem.msRequestFullscreen) {
-                        elem.msRequestFullscreen()
-                    } else if (elem.mozRequestFullScreen) {
-                        elem.mozRequestFullScreen()
-                    } else if (elem.webkitRequestFullscreen) {
-                        elem.webkitRequestFullscreen()
-                    }
-
+                    this.fullsc.launch(document.documentElement)
                     this.fullscreen = true
                 } else {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen()
-                    } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen()
-                    } else if (document.webkitExitFullscreen) {
-                        document.webkitExitFullscreen()
-                    }
-
+                    this.fullsc.exit()
                     this.fullscreen = false
                 }
             }
@@ -165,8 +148,8 @@
         mounted() {
             this.images = data.images
 
-            let randSetNum = this.getRandomInt(0, this.images.length)
-            let randImageNum = this.getRandomInt(0, this.images[randSetNum].length)
+            let randSetNum = getRandomInt(0, this.images.length)
+            let randImageNum = getRandomInt(0, this.images[randSetNum].length)
 
             this.path = this.folder + this.compressionType + '/' + this.images[randSetNum][randImageNum]
 
