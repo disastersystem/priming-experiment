@@ -70,6 +70,13 @@ export default {
             'final18_d2_l3.bmp',
             'final18_d2_l4.bmp',
             'final18_d2_l5.bmp'
+        ], [
+            // grass and water
+            'final19_d2_l1.bmp',
+            'final19_d2_l2.bmp',
+            'final19_d2_l3.bmp',
+            'final19_d2_l4.bmp',
+            'final19_d2_l5.bmp'
         ]
     ]
 }
