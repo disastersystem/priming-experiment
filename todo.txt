@@ -5,13 +5,30 @@ IMPORTANT
 	- se på det han som lagde bildesettet gjorde
 - ta med original, ta med flere reproduksjonstyper
 
+-Make sure worst and best image is in the training. Ordered training images.
+
 - cache the last image to prevent the same image from appaering in a row
 OR
 - animate so that it's clear a new image has been loaded
 	- disable rating buttons while new image loads
 
+---
+Research question:
+Does the memory effect affect the next images?
+
+"Short-term memory plays an important role in for example pair comparison
+experiments, where two images are shown at the time." How many things can be kept in short term memory
+in regards to image quality features? Difference between distortion types?
+Le Moan et al.[16] compared two different setups for paired comparison experiments, showing
+that the results between the two setups were significantly different.
+
+Komme med anbefalinger til de som lager rating experimenter om design av experimentet, eller type statistikk å bruke på resultater?
+Bytte ut rating categories?
+Create a tool for others to use like pair comparison etc, that eliminates the memory effect?
+---
 
 - npm run prod
+- slett resultater som ligger der (ikke krise, kan slette de med min id etterpå, sjekk i localstorage)
 - fjerne public/images i gitignore
 
 Ekstra:

@@ -93,7 +93,7 @@
                                 vm.modal.header = 'You have completed ' + vm.total + ' images!'
                                 vm.modal.message = `
                                     It would be greatly appreciated if you would do even more.
-                                    You can quit at any time, by simply closing the browser tab!'
+                                    You can quit at any time by simply closing the browser tab!'
                                 `
                                 vm.modal.show = true
                                 vm.total += 50
@@ -159,7 +159,7 @@
                 })
             }
 
-            this.modal.header = 'Thanks for participating in this experiment!'
+            this.modal.header = 'Thank you for participating in this experiment!'
             this.modal.message = `
                 <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
                 <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>

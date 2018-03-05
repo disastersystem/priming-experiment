@@ -14199,7 +14199,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(53);
+module.exports = __webpack_require__(55);
 
 
 /***/ }),
@@ -47303,7 +47303,7 @@ var normalizeComponent = __webpack_require__(13)
 /* script */
 var __vue_script__ = __webpack_require__(46)
 /* template */
-var __vue_template__ = __webpack_require__(52)
+var __vue_template__ = __webpack_require__(54)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47420,10 +47420,10 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_functions_random__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_classes_Fullscreen__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Modal__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_functions_random__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_classes_Fullscreen__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Modal__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Modal__);
 //
 //
@@ -47520,7 +47520,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                         if (vm.results == vm.total) {
                             vm.modal.header = 'You have completed ' + vm.total + ' images!';
-                            vm.modal.message = '\n                                It would be greatly appreciated if you would do even more.\n                                You can quit at any time, by simply closing the browser tab!\'\n                            ';
+                            vm.modal.message = '\n                                It would be greatly appreciated if you would do even more.\n                                You can quit at any time by simply closing the browser tab!\'\n                            ';
                             vm.modal.show = true;
                             vm.total += 50;
 
@@ -47572,7 +47572,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         }
 
-        this.modal.header = 'Thanks for participating in this experiment!';
+        this.modal.header = 'Thank you for participating in this experiment!';
         this.modal.message = '\n            <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n            <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>\n            \n            <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>\n            <ul style="margin-top: 0; font-size: 15px;">\n                <li>You turn up the brightness of your screen as high as possible.</li>\n                <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n            </ul>\n        ';
         this.modal.show = true;
     }
@@ -47583,6 +47583,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    //the maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (getRandomInt);
+
+/***/ }),
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Fullscreen = function () {
+    function Fullscreen() {
+        _classCallCheck(this, Fullscreen);
+    }
+
+    _createClass(Fullscreen, [{
+        key: "launch",
+        value: function launch(elem) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            }
+        }
+    }, {
+        key: "exit",
+        value: function exit() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+    }]);
+
+    return Fullscreen;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Fullscreen);
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
     images: [[
     // purple flower wall
@@ -47590,23 +47650,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     // two circle lamps
     'final02_d2_l1.bmp', 'final02_d2_l2.bmp', 'final02_d2_l3.bmp', 'final02_d2_l4.bmp', 'final02_d2_l5.bmp'], [
     // red winter barn
-    'final07_d2_l1.bmp', 'final07_d2_l2.bmp', 'final07_d2_l3.bmp', 'final07_d2_l4.bmp', 'final07_d2_l5.bmp']]
+    'final07_d2_l1.bmp', 'final07_d2_l2.bmp', 'final07_d2_l3.bmp', 'final07_d2_l4.bmp', 'final07_d2_l5.bmp'], [
+    // food
+    'final20_d2_l1.bmp', 'final20_d2_l2.bmp', 'final20_d2_l3.bmp', 'final20_d2_l4.bmp', 'final20_d2_l5.bmp'], [
+    // sunflower
+    'final16_d2_l1.bmp', 'final16_d2_l2.bmp', 'final16_d2_l3.bmp', 'final16_d2_l4.bmp', 'final16_d2_l5.bmp'], [
+    // peacock
+    'final09_d2_l1.bmp', 'final09_d2_l2.bmp', 'final09_d2_l3.bmp', 'final09_d2_l4.bmp', 'final09_d2_l5.bmp'], [
+    // sunflower
+    'final21_d2_l1.bmp', 'final21_d2_l2.bmp', 'final21_d2_l3.bmp', 'final21_d2_l4.bmp', 'final21_d2_l5.bmp'], [
+    // grass and water
+    'final06_d2_l1.bmp', 'final06_d2_l2.bmp', 'final06_d2_l3.bmp', 'final06_d2_l4.bmp', 'final06_d2_l5.bmp']]
 });
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(49)
+  __webpack_require__(51)
 }
 var normalizeComponent = __webpack_require__(13)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(51)
+var __vue_template__ = __webpack_require__(53)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47645,13 +47715,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(50);
+var content = __webpack_require__(52);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -47671,7 +47741,7 @@ if(false) {
 }
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)(false);
@@ -47685,7 +47755,7 @@ exports.push([module.i, "\n.modal-mask[data-v-2c928174] {\n    position: fixed;\
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47741,7 +47811,7 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47914,77 +47984,10 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-
-    //the maximum is exclusive and the minimum is inclusive
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (getRandomInt);
-
-/***/ }),
-/* 62 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Fullscreen = function () {
-    function Fullscreen() {
-        _classCallCheck(this, Fullscreen);
-    }
-
-    _createClass(Fullscreen, [{
-        key: "launch",
-        value: function launch(elem) {
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.msRequestFullscreen) {
-                elem.msRequestFullscreen();
-            } else if (elem.mozRequestFullScreen) {
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen();
-            }
-        }
-    }, {
-        key: "exit",
-        value: function exit() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            }
-        }
-    }]);
-
-    return Fullscreen;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Fullscreen);
 
 /***/ })
 /******/ ]);
