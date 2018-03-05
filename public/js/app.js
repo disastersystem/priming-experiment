@@ -47492,7 +47492,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             fullscreen: false,
 
-            fullsc: new __WEBPACK_IMPORTED_MODULE_1__core_classes_Fullscreen__["a" /* default */]()
+            fullsc: new __WEBPACK_IMPORTED_MODULE_1__core_classes_Fullscreen__["a" /* default */](),
+
+            imageSet: 0,
+
+            traningImages: [],
+
+            order: 0,
+
+            count: 0
         };
     },
 
@@ -47513,8 +47521,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.results++;
 
-            if (this.results > 3) {
-                // do not save the first 3 images
+            if (this.results > 5) {
+                // do not save the first 5 images
                 axios.post('answer/store', answ).then(function (response) {
                     if (response.data == 'saved') {
 
@@ -47537,14 +47545,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         changeImage: function changeImage() {
-            var randSetNum = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images.length);
-            var randImageNum = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images[randSetNum].length);
+            // this.count++
 
-            this.path = this.folder + this.compressionType + '/' + this.images[randSetNum][randImageNum];
+            if (this.results % 5 === 0) {
+                this.imageSet = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images.length);
+
+                this.order = _.shuffle([0, 1, 2, 3, 4]);
+
+                this.count = 0;
+            }
+
+            var randImageNum = this.order[this.count];
+            // console.log(this.order) 
+            // console.log(this.order[0]);
+            // console.log(this.order[1]);
+            // console.log(this.order[2]);
+            // console.log(this.order[3]);
+            // console.log(this.order[4]);
+            // console.log(this.order[this.count]);
+
+            // let randImageNum = getRandomInt(0, this.images[this.imageSet].length)
+
+            this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][randImageNum];
+            this.count++;
         },
         showInfo: function showInfo() {
             this.modal.header = 'About';
-            this.modal.message = '\n                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n                <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>\n                \n                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>\n                <ul style="margin-top: 0; font-size: 15px;">\n                    <li>You turn up the brightness of your screen as high as possible.</li>\n                    <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n                </ul>\n            ';
+            this.modal.message = '\n                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n                <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n                \n                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>\n                <ul style="margin-top: 0; font-size: 15px;">\n                    <li>You turn up the brightness of your screen as high as possible.</li>\n                    <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n                </ul>\n            ';
             this.modal.show = true;
         },
         goFullscreen: function goFullscreen() {
@@ -47561,10 +47588,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.images = __WEBPACK_IMPORTED_MODULE_2__data__["a" /* default */].images;
 
-        var randSetNum = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images.length);
-        var randImageNum = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images[randSetNum].length);
+        this.imageSet = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images.length);
 
-        this.path = this.folder + this.compressionType + '/' + this.images[randSetNum][randImageNum];
+        this.order = _.shuffle([0, 1, 2, 3, 4]);
+
+        this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][this.order[0]];
 
         if (window.localStorage.getItem('id') === null) {
             axios.post('subject/store').then(function (response) {
@@ -47573,7 +47601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         this.modal.header = 'Thank you for participating in this experiment!';
-        this.modal.message = '\n            <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n            <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>\n            \n            <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>\n            <ul style="margin-top: 0; font-size: 15px;">\n                <li>You turn up the brightness of your screen as high as possible.</li>\n                <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n            </ul>\n        ';
+        this.modal.message = '\n            <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n            <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n            \n            <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>\n            <ul style="margin-top: 0; font-size: 15px;">\n                <li>You turn up the brightness of your screen as high as possible.</li>\n                <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n            </ul>\n        ';
         this.modal.show = true;
     }
 });
@@ -47660,7 +47688,11 @@ var Fullscreen = function () {
     // sunflower
     'final21_d2_l1.bmp', 'final21_d2_l2.bmp', 'final21_d2_l3.bmp', 'final21_d2_l4.bmp', 'final21_d2_l5.bmp'], [
     // grass and water
-    'final06_d2_l1.bmp', 'final06_d2_l2.bmp', 'final06_d2_l3.bmp', 'final06_d2_l4.bmp', 'final06_d2_l5.bmp']]
+    'final06_d2_l1.bmp', 'final06_d2_l2.bmp', 'final06_d2_l3.bmp', 'final06_d2_l4.bmp', 'final06_d2_l5.bmp'], [
+    // grass and water
+    'final08_d2_l1.bmp', 'final08_d2_l2.bmp', 'final08_d2_l3.bmp', 'final08_d2_l4.bmp', 'final08_d2_l5.bmp'], [
+    // grass and water
+    'final18_d2_l1.bmp', 'final18_d2_l2.bmp', 'final18_d2_l3.bmp', 'final18_d2_l4.bmp', 'final18_d2_l5.bmp']]
 });
 
 /***/ }),

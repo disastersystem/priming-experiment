@@ -65,7 +65,15 @@
 
                 fullscreen: false,
 
-                fullsc: new Fullscreen
+                fullsc: new Fullscreen,
+
+                imageSet: 0,
+
+                traningImages: [],
+
+                order: 0,
+
+                count: 0
             }
         },
 
@@ -85,7 +93,7 @@
                 
                 this.results++
 
-                if (this.results > 3) { // do not save the first 3 images
+                if (this.results > 5) { // do not save the first 5 images
                     axios.post('answer/store', answ).then(function (response) {
                         if (response.data == 'saved') {
                             
@@ -112,17 +120,36 @@
             },
 
             changeImage() {
-                let randSetNum = getRandomInt(0, this.images.length)
-                let randImageNum = getRandomInt(0, this.images[randSetNum].length)
+                // this.count++
 
-                this.path = this.folder + this.compressionType + '/' + this.images[randSetNum][randImageNum]
+                if (this.results % 5 === 0) {
+                    this.imageSet = getRandomInt(0, this.images.length)
+                    
+                    this.order = _.shuffle( [0, 1, 2, 3, 4] )
+
+                    this.count = 0
+                }
+
+                var randImageNum = this.order[this.count];
+                // console.log(this.order) 
+                // console.log(this.order[0]);
+                // console.log(this.order[1]);
+                // console.log(this.order[2]);
+                // console.log(this.order[3]);
+                // console.log(this.order[4]);
+                // console.log(this.order[this.count]);
+
+                // let randImageNum = getRandomInt(0, this.images[this.imageSet].length)
+
+                this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][randImageNum]
+                this.count++
             },
 
             showInfo() {
                 this.modal.header = 'About'
                 this.modal.message = `
                     <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
-                    <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>
+                    <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>
                     
                     <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>
                     <ul style="margin-top: 0; font-size: 15px;">
@@ -148,10 +175,11 @@
         mounted() {
             this.images = data.images
 
-            let randSetNum = getRandomInt(0, this.images.length)
-            let randImageNum = getRandomInt(0, this.images[randSetNum].length)
+            this.imageSet = getRandomInt(0, this.images.length)
 
-            this.path = this.folder + this.compressionType + '/' + this.images[randSetNum][randImageNum]
+            this.order = _.shuffle( [0, 1, 2, 3, 4] )
+
+            this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][this.order[0]]
 
             if ( window.localStorage.getItem('id') === null ) {
                 axios.post('subject/store').then(function (response) {
@@ -162,7 +190,7 @@
             this.modal.header = 'Thank you for participating in this experiment!'
             this.modal.message = `
                 <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
-                <p style="margin-top: 5px; padding-top: 0;">The first 3 images are training images and will not count.</p>
+                <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>
                 
                 <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>
                 <ul style="margin-top: 0; font-size: 15px;">

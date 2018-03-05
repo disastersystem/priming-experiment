@@ -5,7 +5,7 @@ IMPORTANT
 	- se på det han som lagde bildesettet gjorde
 - ta med original, ta med flere reproduksjonstyper
 
--Make sure worst and best image is in the training. Ordered training images.
+-Lagre om de går i fullscreen. Da må det sjekkes om de lukker også.
 
 - cache the last image to prevent the same image from appaering in a row
 OR
@@ -15,6 +15,11 @@ OR
 ---
 Research question:
 Does the memory effect affect the next images?
+
+Completely random vs. set and image random vs. not random set
+(vs. random but not repeating?)
+
+Likte bedre kategoriene Marius og de hadde.
 
 "Short-term memory plays an important role in for example pair comparison
 experiments, where two images are shown at the time." How many things can be kept in short term memory
