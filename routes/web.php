@@ -16,8 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/results', function () {
-    return view('results')
-    	->with( 'answers', App\Answer::all() );
+    return view('results')->with( 'answers', App\Answer::orderBy('subject')->get() );
+    	
+    // App\Answer::all()
 });
 
 Route::get('/really/weird/url', function () {

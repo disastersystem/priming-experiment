@@ -120,8 +120,6 @@
             },
 
             changeImage() {
-                // this.count++
-
                 if (this.results % 5 === 0) {
                     this.imageSet = getRandomInt(0, this.images.length)
                     
@@ -131,7 +129,7 @@
                 }
 
                 var randImageNum = this.order[this.count];
-                // console.log(this.order) 
+                // console.log(this.order)
                 // console.log(this.order[0]);
                 // console.log(this.order[1]);
                 // console.log(this.order[2]);
@@ -142,6 +140,7 @@
                 // let randImageNum = getRandomInt(0, this.images[this.imageSet].length)
 
                 this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][randImageNum]
+
                 this.count++
             },
 
@@ -153,8 +152,8 @@
                     
                     <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>
                     <ul style="margin-top: 0; font-size: 15px;">
-                        <li>You turn up the brightness of your screen as high as possible.</li>
-                        <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>
+                        <!-- <li>You turn up the brightness of your screen as high as possible.</li> -->
+                        <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>
                     </ul>
                 `
                 this.modal.show = true
@@ -194,8 +193,8 @@
                 
                 <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>
                 <ul style="margin-top: 0; font-size: 15px;">
-                    <li>You turn up the brightness of your screen as high as possible.</li>
-                    <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>
+                    <!-- <li>You turn up the brightness of your screen as high as possible.</li> -->
+                    <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>
                 </ul>
             `
             this.modal.show = true
