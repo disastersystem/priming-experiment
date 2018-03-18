@@ -16,8 +16,8 @@ Route::get('/', function () {
 });
 
 Route::get('/results', function () {
-	$data = App\Answer::orderBy('id')
- 		->orderBy('subject')
+	$data = App\Answer::orderBy('subject')
+ 		->orderBy('id')
  		->get();
 
     return view('results')->with('answers', $data);
