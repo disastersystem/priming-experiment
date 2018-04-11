@@ -2,32 +2,57 @@
     <div>
         <div class="flex-center position-ref full-height">
             <div class="top-bar">
-                <button @click="showInfo()" class="info__btn" title="Information">
+                <button @click.prevent="showInstructions" class="info__btn" title="Information">
                     <img src="icons/info.png" style="width: 25px;">
                 </button>
                 
                 <div style="display: flex; align-items: center;">
-                    <span>{{ results }} / {{ total }}</span>
+                    <span>{{ completed }} / {{ total }}</span>
 
-                    <button @click="goFullscreen()" class="fullscreen__btn" title="Fullscreen mode">
+                    <button @click.prevent="onFullscreen()" class="fullscreen__btn" title="Fullscreen mode">
                         <img src="icons/fullscreen.png" style="width: 25px;">
                     </button>
+
                     <!-- <fullscreen-button @show="fullscreen"></fullscreen-button> -->
+
+                    <button v-if="completed > 3" @click.prevent="onSubmit">
+                        {{ completed }} - Finish
+                    </button>
                 </div>
             </div>
 
             <div class="image-container">
-                <!-- <transition name="modal"> -->
-                    <img class="image" :src="path">
-                <!-- </transition> -->
+                <div class="img-box">
+                    <transition>
+                        <img v-show="isLoad" :src="path" @load="loaded">
+                    </transition>
+
+                    <div v-show="!isLoad" class="loading">
+                        Loading...
+                    </div>
+                </div>
             </div>
 
             <div class="rating-bar">
-                <button class="rate__btn" @click="submitAnswer('bad')">Bad</button>
-                <button class="rate__btn" @click="submitAnswer('poor')">Poor</button>
-                <button class="rate__btn" @click="submitAnswer('fair')">Fair</button>
-                <button class="rate__btn" @click="submitAnswer('good')">Good</button>
-                <button class="rate__btn" @click="submitAnswer('excellent')">Excellent</button>
+                <button class="rate__btn" @click="onAnswer(1)" :disabled="!isLoad">
+                    Bad
+                </button>
+                
+                <button class="rate__btn" @click="onAnswer(2)" :disabled="!isLoad">
+                    Poor
+                </button>
+                
+                <button class="rate__btn" @click="onAnswer(3)" :disabled="!isLoad">
+                    Fair
+                </button>
+
+                <button class="rate__btn" @click="onAnswer(4)" :disabled="!isLoad">
+                    Good
+                </button>
+                
+                <button class="rate__btn" @click="onAnswer(5)" :disabled="!isLoad">
+                    Excellent
+                </button>
             </div>
         </div>
 
@@ -40,111 +65,131 @@
 </template>
 
 <script>
+    import data from '../data'
     import getRandomInt from '../core/functions/random'
     import Fullscreen from '../core/classes/Fullscreen'
-    import data from '../data'
+    import Stopwatch from '../core/classes/Stopwatch'
     import modal from '../components/Modal'
+    import photo from '../components/Photo'
 
     export default {
         data() {
             return {
-                images: [],
-                path: '',
                 folder: 'images/CIDIQ/Images/Reproduction/',
                 compressionType: '2_JPEG_Compression',
 
-                // answers: [],
-                results: 0,
+                photos: [],
+                path: '',
+                isLoad: false,
+
+                answers: [],
+                // traningPhotos: [],
+
+                // categories: ['bad', 'poor', 'fair', 'good', 'excellent'],
+
+                photoSet: 0,
+                photoSetOrder: 0,
+                photoSetOrderIndex: 0,
+
+                completed: 0,
                 total: 100,
+
+                fs: new Fullscreen,
+                stopwatch: new Stopwatch,
+
+                timer: {
+                    start: 0,
+                    elapsed: 0
+                },
+
+                fullscreen: false,
 
                 modal: {
                     show: false,
                     message: '',
                     header: ''
-                },
-
-                fullscreen: false,
-
-                fullsc: new Fullscreen,
-
-                imageSet: 0,
-
-                traningImages: [],
-
-                order: 0,
-
-                count: 0
+                }
             }
         },
 
         components: {
-            modal
+            modal,
+            photo
         },
 
         methods: {
-            submitAnswer(rating) {
-                let vm = this
+            onAnswer(rating) {
+                this.stopwatch.stop()
 
-                var answ = {
+                if (this.completed > 5) { // don't save the first 5 images (first set)
+                    this.saveAnswer(rating)
+                }
+
+                if (this.completed == this.total) {
+                    this.showThresholdMessage()
+                }
+
+                this.completed++
+
+                this.nextPhoto()
+            },
+
+            saveAnswer(rating) {
+                this.answers.push({
+                    time: this.stopwatch.elapsed,
                     answer: rating,
-                    image: this.path,
-                    subject: window.localStorage.getItem('id')
-                }
-                
-                this.results++
-
-                if (this.results > 5) { // do not save the first 5 images
-                    axios.post('answer/store', answ).then(function (response) {
-                        if (response.data == 'saved') {
-                            
-                            if (vm.results == vm.total) {
-                                vm.modal.header = 'You have completed ' + vm.total + ' images!'
-                                vm.modal.message = `
-                                    It would be greatly appreciated if you would do even more.
-                                    You can quit at any time by simply closing the browser tab!'
-                                `
-                                vm.modal.show = true
-                                vm.total += 50
-
-                                vm.changeImage()
-                            } else {
-                                vm.changeImage()
-                            }
-                        }
-                    }).catch(function (error) {
-                        console.log(error)
-                    })
-                } else {
-                    vm.changeImage()
-                }
+                    image: this.path
+                })
             },
 
-            changeImage() {
-                if (this.results % 5 === 0) {
-                    this.imageSet = getRandomInt(0, this.images.length)
+            showThresholdMessage() {
+                this.modal.header = 'You have completed ' + this.total + ' images!'
+                this.modal.message = `
+                    It would be greatly appreciated if you would do even more.
+                    You can quit at any time by simply closing the browser tab!'
+                `
+                this.modal.show = true
+                this.total += 50 // 
+            },
+            
+            onSubmit() {
+                axios.post('answer/store', this.answers).then(response => {
+                    console.log(response)
+                })
+            },
+
+            nextPhoto() {
+                this.isLoad = false
+
+                this.stopwatch.stop()
+
+                /* when every image in a set has been shown, select a new set and generate a new random order */
+                if (this.photoSetOrderIndex === 5) {
+                    this.photoSet = getRandomInt(0, this.photos.length)
                     
-                    this.order = _.shuffle( [0, 1, 2, 3, 4] )
+                    this.photoSetOrder = _.shuffle( [0, 1, 2, 3, 4] )
 
-                    this.count = 0
+                    this.photoSetOrderIndex = 0
                 }
 
-                var randImageNum = this.order[this.count];
-                // console.log(this.order)
-                // console.log(this.order[0]);
-                // console.log(this.order[1]);
-                // console.log(this.order[2]);
-                // console.log(this.order[3]);
-                // console.log(this.order[4]);
-                // console.log(this.order[this.count]);
+                /* nextTick allows you to do something after you have changed the data and VueJS has 
+                 * updated the DOM based on your data change, but before the browser has rendered those changed on the page */
+                this.$nextTick( () => {
+                    this.path = this.folder + this.compressionType + '/' + this.photos[this.photoSet][this.photoSetOrder[this.photoSetOrderIndex]]
 
-                // let randImageNum = getRandomInt(0, this.images[this.imageSet].length)
-
-                this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][randImageNum]
-
-                this.count++
+                    this.photoSetOrderIndex++
+                    this.stopwatch.start()
+                })
             },
 
-            showInfo() {
+            /**
+             * 
+             */
+            loaded() {
+                this.isLoad = true
+            },
+
+            showInstructions() {
                 this.modal.header = 'About'
                 this.modal.message = `
                     <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
@@ -159,12 +204,12 @@
                 this.modal.show = true
             },
 
-            goFullscreen() {
+            onFullscreen() {
                 if (this.fullscreen == false) {
-                    this.fullsc.launch(document.documentElement)
+                    this.fs.launch(document.documentElement)
                     this.fullscreen = true
                 } else {
-                    this.fullsc.exit()
+                    this.fs.exit()
                     this.fullscreen = false
                 }
             }
@@ -172,20 +217,25 @@
         },
 
         mounted() {
-            this.images = data.images
+            // load all photos into instance prop
+            this.photos = data.photos
 
-            this.imageSet = getRandomInt(0, this.images.length)
+            // get random set
+            this.photoSet = getRandomInt(0, this.photos.length)
 
-            this.order = _.shuffle( [0, 1, 2, 3, 4] )
+            // create a random set order
+            this.photoSetOrder = _.shuffle( [0, 1, 2, 3, 4] )
+            
+            this.path = this.folder + this.compressionType + '/' + this.photos[this.photoSet][ this.photoSetOrder[this.photoSetOrderIndex] ]
 
-            this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][this.order[0]]
+            this.stopwatch.start()
 
-            if ( window.localStorage.getItem('id') === null ) {
-                axios.post('subject/store').then(function (response) {
-                    window.localStorage.setItem('id', response.data)
-                })
-            }
+            // increase...
+            this.photoSetOrderIndex++
 
+
+            /***
+             **/
             this.modal.header = 'Thank you for participating in this experiment!'
             this.modal.message = `
                 <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
@@ -242,5 +292,12 @@
         bottom: 0;
         padding: 30px;
         z-index: 10;
+    }
+
+    .intrinsic-placeholder {
+        /*padding-bottom: 60%;
+        position: relative;*/
+        width: 800px;
+        height: 800px;
     }
 </style>

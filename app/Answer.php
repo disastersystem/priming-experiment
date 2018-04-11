@@ -12,6 +12,6 @@ class Answer extends Model
      * @var array
      */
     protected $fillable = [
-        'image', 'answer', 'subject'
+        'image', 'answer', 'subject', 'time'
     ];
 }

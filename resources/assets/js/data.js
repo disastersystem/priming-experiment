@@ -1,5 +1,5 @@
 export default {
-    images: [
+    photos: [
         [
             // purple flower wall
             'final01_d2_l1.bmp',

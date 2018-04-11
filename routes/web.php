@@ -16,11 +16,11 @@ Route::get('/', function () {
 });
 
 Route::get('/results', function () {
-	$data = App\Answer::orderBy('subject')
+	$answers = App\Answer::orderBy('subject')
  		->orderBy('id')
  		->get();
 
-    return view('results')->with('answers', $data);
+    return view('results')->with('answers', $answers);
 
    	 // App\Answer::all()
 });

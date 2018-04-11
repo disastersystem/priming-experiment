@@ -19,6 +19,7 @@ class CreateAnswersTable extends Migration
             $table->string('image', 100);
             $table->string('answer', 100);
             $table->string('subject', 100);
+            $table->integer('time');
 
             $table->timestamps();
         });

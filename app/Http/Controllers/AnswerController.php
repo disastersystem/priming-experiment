@@ -10,12 +10,23 @@ class AnswerController extends Controller
     public function store(Request $request) {
     	$answer = new Answer;
 
-    	$answer->image = $request->image;
-        $answer->answer = $request->answer;
-        $answer->subject = $request->subject;
+    	// $answer->image = $request->image;
+        // $answer->answer = $request->answer;
+        // $answer->subject = $request->subject;
+        // $answer->time = $request->time;
+
+        // foreach ($request as $item) {
+        //     $answer->image = $request->image;
+        //     $answer->answer = $request->answer;
+        //     $answer->time = $request->time;
+
+        //     $answer->save();
+        // }
 
         // The created_at and updated_at timestamps will automatically be set when 
         // the save method is called, so there is no need to set them manually.
-        return ($answer->save()) ? 'saved' : 'not saved';
+        // return ($answer->save()) ? 'saved' : 'not saved';
+
+        return 'ok ok';
     }
 }

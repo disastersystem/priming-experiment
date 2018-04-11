@@ -81,6 +81,53 @@
                 -webkit-transform: scale(1.1);
                 transform: scale(1.1);
             }
+
+            /* fade in and fade out animation */
+            .fade-enter-active,
+            .fade-leave-active {
+                transition: opacity 1s;
+            }
+
+            .fade-enter,
+            .fade-leave-to {
+                opacity: 0;
+            }
+
+            #app img {
+                width: 100%;
+                height: auto;
+            }
+
+            .img-box {
+                position: relative;
+                /*min-height: 100px;*/
+                height: 800px;
+                width: 800px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .img-box img {
+                transition: all .3s ease;
+                /*height: 30px;*/
+                /*padding: 10px;*/
+                margin: 0;
+                /*background-color: #eee;*/
+                /*overflow: hidden;*/
+            }
+            .img-box img.v-enter, img.v-leave {
+                height: 0;
+                /*padding: 0 10px;*/
+                opacity: 0;
+            }
+            .loading {
+                /*text-indent: -9999px;*/
+                color: #000;
+                font-size: 30px;
+                text-align: center;
+                font-weight: 600;
+            }
         </style>
     </head>
     <body>
