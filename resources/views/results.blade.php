@@ -99,12 +99,12 @@
                     }
                 }
                 
-                $ans = $categories[$answer->answer];
+                // $ans = $categories[$answer->answer];
 
                 echo "<div>"
                         . $answer->id . 
                     ' ' . $path_parts['filename'] . 
-                    ' ' . $ans . 
+                    ' ' . $answer->answer . 
                     ' ' . $answer->subject . 
                 '</div>';
             }

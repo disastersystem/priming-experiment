@@ -1,3 +1,5 @@
+'use strict'
+
 class Fullscreen {
 	launch(elem) {
 		if (elem.requestFullscreen) {
@@ -22,4 +24,4 @@ class Fullscreen {
 	}
 }
 
-export default Fullscreen;
+export default Fullscreen

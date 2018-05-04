@@ -47376,7 +47376,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.top-bar[data-v-26b44034] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    color: #000;\n    font-weight: bold;\n    padding: 20px;\n    position: fixed;\n    top: 0;\n    right: 0;\n    /*width: 50%;*/\n    left: 0;\n    z-index: 10;\n}\n.info__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n}\n.fullscreen__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n    margin-left: 40px;\n}\n.rating-bar[data-v-26b44034] {\n    position: fixed;\n    bottom: 0;\n    padding: 30px;\n    z-index: 10;\n}\n.intrinsic-placeholder[data-v-26b44034] {\n    /*padding-bottom: 60%;\n    position: relative;*/\n    width: 800px;\n    height: 800px;\n}\n", ""]);
+exports.push([module.i, "\n.top-bar[data-v-26b44034] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    color: #000;\n    font-weight: bold;\n    padding: 20px;\n    position: fixed;\n    top: 0;\n    right: 0;\n    left: 0;\n    z-index: 10;\n}\n.info__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n}\n.fullscreen__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n    margin-left: 40px;\n}\n.rating-bar[data-v-26b44034] {\n    position: fixed;\n    bottom: 0;\n    padding: 30px;\n    z-index: 10;\n}\n", ""]);
 
 // exports
 
@@ -47420,10 +47420,10 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_functions_random__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_classes_Fullscreen__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_classes_Stopwatch__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_functions_random__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_classes_Fullscreen__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_classes_Stopwatch__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Modal__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Modal__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Photo__ = __webpack_require__(55);
@@ -47492,8 +47492,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
+
+ // photos and messages
 
 
 
@@ -47513,24 +47513,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             isLoad: false,
 
             answers: [],
-            // traningPhotos: [],
-
-            // categories: ['bad', 'poor', 'fair', 'good', 'excellent'],
 
             photoSet: 0,
             photoSetOrder: 0,
             photoSetOrderIndex: 0,
 
+            threshold: 100,
             completed: 0,
-            total: 100,
 
             fs: new __WEBPACK_IMPORTED_MODULE_2__core_classes_Fullscreen__["a" /* default */](),
             stopwatch: new __WEBPACK_IMPORTED_MODULE_3__core_classes_Stopwatch__["a" /* default */](),
-
-            timer: {
-                start: 0,
-                elapsed: 0
-            },
 
             fullscreen: false,
 
@@ -47557,8 +47549,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.saveAnswer(rating);
             }
 
-            if (this.completed == this.total) {
-                this.showThresholdMessage();
+            if (this.completed == this.threshold) {
+                this.onThresholdReached();
             }
 
             this.completed++;
@@ -47569,22 +47561,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.answers.push({
                 time: this.stopwatch.elapsed,
                 answer: rating,
-                image: this.path
+                image: this.path,
+                subject: ''
             });
         },
-        showThresholdMessage: function showThresholdMessage() {
-            this.modal.header = 'You have completed ' + this.total + ' images!';
-            this.modal.message = '\n                It would be greatly appreciated if you would do even more.\n                You can quit at any time by simply closing the browser tab!\'\n            ';
+        onThresholdReached: function onThresholdReached() {
+            this.modal.header = 'You have completed ' + this.threshold + ' images! Thank you very much.';
+            this.modal.message = __WEBPACK_IMPORTED_MODULE_0__data__["a" /* default */].messages.threshold;
             this.modal.show = true;
-            this.total += 50; // 
+
+            // increase stimuli to complete by 50, we want to give them a new goal to reach for
+            this.threshold += 50;
         },
         onSubmit: function onSubmit() {
+            var _this = this;
+
             axios.post('answer/store', this.answers).then(function (response) {
-                console.log(response);
+                _this.answers = [];
             });
         },
         nextPhoto: function nextPhoto() {
-            var _this = this;
+            var _this2 = this;
 
             this.isLoad = false;
 
@@ -47602,10 +47599,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             /* nextTick allows you to do something after you have changed the data and VueJS has 
              * updated the DOM based on your data change, but before the browser has rendered those changed on the page */
             this.$nextTick(function () {
-                _this.path = _this.folder + _this.compressionType + '/' + _this.photos[_this.photoSet][_this.photoSetOrder[_this.photoSetOrderIndex]];
+                _this2.path = _this2.folder + _this2.compressionType + '/' + _this2.photos[_this2.photoSet][_this2.photoSetOrder[_this2.photoSetOrderIndex]];
 
-                _this.photoSetOrderIndex++;
-                _this.stopwatch.start();
+                _this2.photoSetOrderIndex++;
+                _this2.stopwatch.start();
             });
         },
 
@@ -47618,12 +47615,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         showInstructions: function showInstructions() {
             this.modal.header = 'About';
-            this.modal.message = '\n                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n                <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n                \n                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>\n                <ul style="margin-top: 0; font-size: 15px;">\n                    <!-- <li>You turn up the brightness of your screen as high as possible.</li> -->\n                    <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>\n                </ul>\n            ';
+            this.modal.message = __WEBPACK_IMPORTED_MODULE_0__data__["a" /* default */].messages.instructions;
             this.modal.show = true;
         },
         onFullscreen: function onFullscreen() {
             if (this.fullscreen == false) {
-                this.fs.launch(document.documentElement);
+                this.fs.launch(document.documentElement); //launch the root element of the document (<html>) in fullscreen
                 this.fullscreen = true;
             } else {
                 this.fs.exit();
@@ -47636,10 +47633,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // load all photos into instance prop
         this.photos = __WEBPACK_IMPORTED_MODULE_0__data__["a" /* default */].photos;
 
-        // get random set
+        // set a random photo set
         this.photoSet = Object(__WEBPACK_IMPORTED_MODULE_1__core_functions_random__["a" /* default */])(0, this.photos.length);
 
-        // create a random set order
+        // set a random photo set order
         this.photoSetOrder = _.shuffle([0, 1, 2, 3, 4]);
 
         this.path = this.folder + this.compressionType + '/' + this.photos[this.photoSet][this.photoSetOrder[this.photoSetOrderIndex]];
@@ -47649,10 +47646,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // increase...
         this.photoSetOrderIndex++;
 
-        /***
-         **/
+        // 
         this.modal.header = 'Thank you for participating in this experiment!';
-        this.modal.message = '\n            <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n            <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n            \n            <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>\n            <ul style="margin-top: 0; font-size: 15px;">\n                <!-- <li>You turn up the brightness of your screen as high as possible.</li> -->\n                <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>\n            </ul>\n        ';
+        this.modal.message = __WEBPACK_IMPORTED_MODULE_0__data__["a" /* default */].messages.instructions;
         this.modal.show = true;
     }
 });
@@ -47662,6 +47658,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    photos: [[
+    // purple flower wall
+    'final01_d2_l1.bmp', 'final01_d2_l2.bmp', 'final01_d2_l3.bmp', 'final01_d2_l4.bmp', 'final01_d2_l5.bmp'], [
+    // two circle lamps
+    'final02_d2_l1.bmp', 'final02_d2_l2.bmp', 'final02_d2_l3.bmp', 'final02_d2_l4.bmp', 'final02_d2_l5.bmp'], [
+    // red winter barn
+    'final07_d2_l1.bmp', 'final07_d2_l2.bmp', 'final07_d2_l3.bmp', 'final07_d2_l4.bmp', 'final07_d2_l5.bmp'], [
+    // food
+    'final20_d2_l1.bmp', 'final20_d2_l2.bmp', 'final20_d2_l3.bmp', 'final20_d2_l4.bmp', 'final20_d2_l5.bmp'], [
+    // sunflower
+    'final16_d2_l1.bmp', 'final16_d2_l2.bmp', 'final16_d2_l3.bmp', 'final16_d2_l4.bmp', 'final16_d2_l5.bmp'], [
+    // peacock
+    'final09_d2_l1.bmp', 'final09_d2_l2.bmp', 'final09_d2_l3.bmp', 'final09_d2_l4.bmp', 'final09_d2_l5.bmp'], [
+    // sunflower
+    'final21_d2_l1.bmp', 'final21_d2_l2.bmp', 'final21_d2_l3.bmp', 'final21_d2_l4.bmp', 'final21_d2_l5.bmp'], [
+    // grass and water
+    'final06_d2_l1.bmp', 'final06_d2_l2.bmp', 'final06_d2_l3.bmp', 'final06_d2_l4.bmp', 'final06_d2_l5.bmp'], [
+    // grass and water
+    'final08_d2_l1.bmp', 'final08_d2_l2.bmp', 'final08_d2_l3.bmp', 'final08_d2_l4.bmp', 'final08_d2_l5.bmp'], [
+    // grass and water
+    'final18_d2_l1.bmp', 'final18_d2_l2.bmp', 'final18_d2_l3.bmp', 'final18_d2_l4.bmp', 'final18_d2_l5.bmp'], [
+    // grass and water
+    'final19_d2_l1.bmp', 'final19_d2_l2.bmp', 'final19_d2_l3.bmp', 'final19_d2_l4.bmp', 'final19_d2_l5.bmp']],
+
+    messages: {
+        instructions: '\n            <h3 class="sub-header">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n            <p>The first 5 images are training images and will not count.</p>\n            <p class="ul-title">It would be beneficial if</p>\n            <ul>\n                <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>\n            </ul>\n        ',
+
+        threshold: '\n            It would be greatly appreciated if you would do even more.\n            You can quit at any time by simply closing the browser tab!\'\n        '
+    }
+});
+
+/***/ }),
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -47673,10 +47708,12 @@ function getRandomInt(min, max) {
 /* harmony default export */ __webpack_exports__["a"] = (getRandomInt);
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47687,7 +47724,7 @@ var Fullscreen = function () {
     }
 
     _createClass(Fullscreen, [{
-        key: "launch",
+        key: 'launch',
         value: function launch(elem) {
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
@@ -47700,7 +47737,7 @@ var Fullscreen = function () {
             }
         }
     }, {
-        key: "exit",
+        key: 'exit',
         value: function exit() {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
@@ -47718,7 +47755,7 @@ var Fullscreen = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Fullscreen);
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47767,37 +47804,6 @@ var Stopwatch = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Stopwatch);
-
-/***/ }),
-/* 50 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-    photos: [[
-    // purple flower wall
-    'final01_d2_l1.bmp', 'final01_d2_l2.bmp', 'final01_d2_l3.bmp', 'final01_d2_l4.bmp', 'final01_d2_l5.bmp'], [
-    // two circle lamps
-    'final02_d2_l1.bmp', 'final02_d2_l2.bmp', 'final02_d2_l3.bmp', 'final02_d2_l4.bmp', 'final02_d2_l5.bmp'], [
-    // red winter barn
-    'final07_d2_l1.bmp', 'final07_d2_l2.bmp', 'final07_d2_l3.bmp', 'final07_d2_l4.bmp', 'final07_d2_l5.bmp'], [
-    // food
-    'final20_d2_l1.bmp', 'final20_d2_l2.bmp', 'final20_d2_l3.bmp', 'final20_d2_l4.bmp', 'final20_d2_l5.bmp'], [
-    // sunflower
-    'final16_d2_l1.bmp', 'final16_d2_l2.bmp', 'final16_d2_l3.bmp', 'final16_d2_l4.bmp', 'final16_d2_l5.bmp'], [
-    // peacock
-    'final09_d2_l1.bmp', 'final09_d2_l2.bmp', 'final09_d2_l3.bmp', 'final09_d2_l4.bmp', 'final09_d2_l5.bmp'], [
-    // sunflower
-    'final21_d2_l1.bmp', 'final21_d2_l2.bmp', 'final21_d2_l3.bmp', 'final21_d2_l4.bmp', 'final21_d2_l5.bmp'], [
-    // grass and water
-    'final06_d2_l1.bmp', 'final06_d2_l2.bmp', 'final06_d2_l3.bmp', 'final06_d2_l4.bmp', 'final06_d2_l5.bmp'], [
-    // grass and water
-    'final08_d2_l1.bmp', 'final08_d2_l2.bmp', 'final08_d2_l3.bmp', 'final08_d2_l4.bmp', 'final08_d2_l5.bmp'], [
-    // grass and water
-    'final18_d2_l1.bmp', 'final18_d2_l2.bmp', 'final18_d2_l3.bmp', 'final18_d2_l4.bmp', 'final18_d2_l5.bmp'], [
-    // grass and water
-    'final19_d2_l1.bmp', 'final19_d2_l2.bmp', 'final19_d2_l3.bmp', 'final19_d2_l4.bmp', 'final19_d2_l5.bmp']]
-});
 
 /***/ }),
 /* 51 */
@@ -48143,7 +48149,7 @@ var render = function() {
             { staticStyle: { display: "flex", "align-items": "center" } },
             [
               _c("span", [
-                _vm._v(_vm._s(_vm.completed) + " / " + _vm._s(_vm.total))
+                _vm._v(_vm._s(_vm.completed) + " / " + _vm._s(_vm.threshold))
               ]),
               _vm._v(" "),
               _c(
@@ -48190,52 +48196,49 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "image-container" }, [
-          _c(
-            "div",
-            { staticClass: "img-box" },
-            [
-              _c("transition", [
-                _c("img", {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.isLoad,
-                      expression: "isLoad"
-                    }
-                  ],
-                  attrs: { src: _vm.path },
-                  on: { load: _vm.loaded }
-                })
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.isLoad,
-                      expression: "!isLoad"
-                    }
-                  ],
-                  staticClass: "loading"
-                },
-                [_vm._v("\n                    Loading...\n                ")]
-              )
-            ],
-            1
-          )
-        ]),
+        _c(
+          "div",
+          { staticClass: "img-box" },
+          [
+            _c("transition", [
+              _c("img", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isLoad,
+                    expression: "isLoad"
+                  }
+                ],
+                attrs: { src: _vm.path },
+                on: { load: _vm.loaded }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.isLoad,
+                    expression: "!isLoad"
+                  }
+                ],
+                staticClass: "loading"
+              },
+              [_vm._v("\n                Loading...\n            ")]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "rating-bar" }, [
           _c(
             "button",
             {
               staticClass: "rate__btn",
-              attrs: { disabled: !_vm.isLoad },
               on: {
                 click: function($event) {
                   _vm.onAnswer(1)
@@ -48249,7 +48252,6 @@ var render = function() {
             "button",
             {
               staticClass: "rate__btn",
-              attrs: { disabled: !_vm.isLoad },
               on: {
                 click: function($event) {
                   _vm.onAnswer(2)
@@ -48263,7 +48265,6 @@ var render = function() {
             "button",
             {
               staticClass: "rate__btn",
-              attrs: { disabled: !_vm.isLoad },
               on: {
                 click: function($event) {
                   _vm.onAnswer(3)
@@ -48277,7 +48278,6 @@ var render = function() {
             "button",
             {
               staticClass: "rate__btn",
-              attrs: { disabled: !_vm.isLoad },
               on: {
                 click: function($event) {
                   _vm.onAnswer(4)
@@ -48291,7 +48291,6 @@ var render = function() {
             "button",
             {
               staticClass: "rate__btn",
-              attrs: { disabled: !_vm.isLoad },
               on: {
                 click: function($event) {
                   _vm.onAnswer(5)

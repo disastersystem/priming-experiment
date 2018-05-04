@@ -7,13 +7,11 @@
                 </button>
                 
                 <div style="display: flex; align-items: center;">
-                    <span>{{ completed }} / {{ total }}</span>
+                    <span>{{ completed }} / {{ threshold }}</span>
 
                     <button @click.prevent="onFullscreen()" class="fullscreen__btn" title="Fullscreen mode">
                         <img src="icons/fullscreen.png" style="width: 25px;">
                     </button>
-
-                    <!-- <fullscreen-button @show="fullscreen"></fullscreen-button> -->
 
                     <button v-if="completed > 3" @click.prevent="onSubmit">
                         {{ completed }} - Finish
@@ -21,38 +19,22 @@
                 </div>
             </div>
 
-            <div class="image-container">
-                <div class="img-box">
-                    <transition>
-                        <img v-show="isLoad" :src="path" @load="loaded">
-                    </transition>
+            <div class="img-box">
+                <transition>
+                    <img v-show="isLoad" :src="path" @load="loaded">
+                </transition>
 
-                    <div v-show="!isLoad" class="loading">
-                        Loading...
-                    </div>
+                <div v-show="!isLoad" class="loading">
+                    Loading...
                 </div>
             </div>
 
             <div class="rating-bar">
-                <button class="rate__btn" @click="onAnswer(1)" :disabled="!isLoad">
-                    Bad
-                </button>
-                
-                <button class="rate__btn" @click="onAnswer(2)" :disabled="!isLoad">
-                    Poor
-                </button>
-                
-                <button class="rate__btn" @click="onAnswer(3)" :disabled="!isLoad">
-                    Fair
-                </button>
-
-                <button class="rate__btn" @click="onAnswer(4)" :disabled="!isLoad">
-                    Good
-                </button>
-                
-                <button class="rate__btn" @click="onAnswer(5)" :disabled="!isLoad">
-                    Excellent
-                </button>
+                <button class="rate__btn" @click="onAnswer(1)">Bad</button> <!-- :disabled="!isLoad" -->
+                <button class="rate__btn" @click="onAnswer(2)">Poor</button>
+                <button class="rate__btn" @click="onAnswer(3)">Fair</button>
+                <button class="rate__btn" @click="onAnswer(4)">Good</button>
+                <button class="rate__btn" @click="onAnswer(5)">Excellent</button>
             </div>
         </div>
 
@@ -65,10 +47,12 @@
 </template>
 
 <script>
-    import data from '../data'
+    import data from '../data' // photos and messages
+
     import getRandomInt from '../core/functions/random'
     import Fullscreen from '../core/classes/Fullscreen'
     import Stopwatch from '../core/classes/Stopwatch'
+
     import modal from '../components/Modal'
     import photo from '../components/Photo'
 
@@ -83,24 +67,16 @@
                 isLoad: false,
 
                 answers: [],
-                // traningPhotos: [],
-
-                // categories: ['bad', 'poor', 'fair', 'good', 'excellent'],
 
                 photoSet: 0,
                 photoSetOrder: 0,
                 photoSetOrderIndex: 0,
 
+                threshold: 100,
                 completed: 0,
-                total: 100,
 
                 fs: new Fullscreen,
                 stopwatch: new Stopwatch,
-
-                timer: {
-                    start: 0,
-                    elapsed: 0
-                },
 
                 fullscreen: false,
 
@@ -118,15 +94,20 @@
         },
 
         methods: {
+            /**
+             * Called when a stimuli has been rated.
+             */
             onAnswer(rating) {
                 this.stopwatch.stop()
 
-                if (this.completed > 5) { // don't save the first 5 images (first set)
+                /* don't save the first 5 images (first set) */
+                if (this.completed > 5) {
                     this.saveAnswer(rating)
                 }
 
-                if (this.completed == this.total) {
-                    this.showThresholdMessage()
+                /* amount of completed stimuli has reached the limit we set */
+                if (this.completed == this.threshold) {
+                    this.onThresholdReached()
                 }
 
                 this.completed++
@@ -138,28 +119,31 @@
                 this.answers.push({
                     time: this.stopwatch.elapsed,
                     answer: rating,
-                    image: this.path
+                    image: this.path,
+                    subject: ''
                 })
             },
 
-            showThresholdMessage() {
-                this.modal.header = 'You have completed ' + this.total + ' images!'
-                this.modal.message = `
-                    It would be greatly appreciated if you would do even more.
-                    You can quit at any time by simply closing the browser tab!'
-                `
+            onThresholdReached() {
+                this.modal.header = 'You have completed ' + this.threshold + ' images! Thank you very much.'
+                this.modal.message = data.messages.threshold
                 this.modal.show = true
-                this.total += 50 // 
+
+                // increase stimuli to complete by 50, we want to give them a new goal to reach for
+                this.threshold += 50
             },
             
             onSubmit() {
                 axios.post('answer/store', this.answers).then(response => {
-                    console.log(response)
+                    this.answers = []
                 })
             },
 
+            /**
+             * Load a new photo stimuli.
+             */
             nextPhoto() {
-                this.isLoad = false
+                this.isLoad = false // set isLoad to false until photo has been fully loaded
 
                 this.stopwatch.stop()
 
@@ -167,7 +151,7 @@
                 if (this.photoSetOrderIndex === 5) {
                     this.photoSet = getRandomInt(0, this.photos.length)
                     
-                    this.photoSetOrder = _.shuffle( [0, 1, 2, 3, 4] )
+                    this.photoSetOrder = _.shuffle([0, 1, 2, 3, 4])
 
                     this.photoSetOrderIndex = 0
                 }
@@ -177,36 +161,24 @@
                 this.$nextTick( () => {
                     this.path = this.folder + this.compressionType + '/' + this.photos[this.photoSet][this.photoSetOrder[this.photoSetOrderIndex]]
 
-                    this.photoSetOrderIndex++
                     this.stopwatch.start()
+                    this.photoSetOrderIndex++
                 })
             },
 
-            /**
-             * 
-             */
             loaded() {
                 this.isLoad = true
             },
 
             showInstructions() {
                 this.modal.header = 'About'
-                this.modal.message = `
-                    <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
-                    <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>
-                    
-                    <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>
-                    <ul style="margin-top: 0; font-size: 15px;">
-                        <!-- <li>You turn up the brightness of your screen as high as possible.</li> -->
-                        <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>
-                    </ul>
-                `
+                this.modal.message = data.messages.instructions
                 this.modal.show = true
             },
 
             onFullscreen() {
                 if (this.fullscreen == false) {
-                    this.fs.launch(document.documentElement)
+                    this.fs.launch(document.documentElement) //launch the root element of the document (<html>) in fullscreen
                     this.fullscreen = true
                 } else {
                     this.fs.exit()
@@ -220,33 +192,22 @@
             // load all photos into instance prop
             this.photos = data.photos
 
-            // get random set
+            // set a random photo set
             this.photoSet = getRandomInt(0, this.photos.length)
 
-            // create a random set order
+            // set a random photo set order
             this.photoSetOrder = _.shuffle( [0, 1, 2, 3, 4] )
             
             this.path = this.folder + this.compressionType + '/' + this.photos[this.photoSet][ this.photoSetOrder[this.photoSetOrderIndex] ]
 
             this.stopwatch.start()
 
-            // increase...
+            // we've loaded the first image in our shuffled set order array, go to index two
             this.photoSetOrderIndex++
 
-
-            /***
-             **/
+            // display a modal with experiment instructions
             this.modal.header = 'Thank you for participating in this experiment!'
-            this.modal.message = `
-                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
-                <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>
-                
-                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>
-                <ul style="margin-top: 0; font-size: 15px;">
-                    <!-- <li>You turn up the brightness of your screen as high as possible.</li> -->
-                    <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>
-                </ul>
-            `
+            this.modal.message = data.messages.instructions
             this.modal.show = true
         }
     }
@@ -263,7 +224,6 @@
         position: fixed;
         top: 0;
         right: 0;
-        /*width: 50%;*/
         left: 0;
         z-index: 10;
     }
@@ -292,12 +252,5 @@
         bottom: 0;
         padding: 30px;
         z-index: 10;
-    }
-
-    .intrinsic-placeholder {
-        /*padding-bottom: 60%;
-        position: relative;*/
-        width: 800px;
-        height: 800px;
     }
 </style>
