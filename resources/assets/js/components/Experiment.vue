@@ -53,9 +53,9 @@
                 folder: 'images/CIDIQ/Images/Reproduction/',
                 compressionType: '2_JPEG_Compression',
 
-                // answers: [],
                 results: 0,
                 total: 100,
+                randPhotosIndex: 0,
 
                 modal: {
                     show: false,
@@ -65,15 +65,7 @@
 
                 fullscreen: false,
 
-                fullsc: new Fullscreen,
-
-                imageSet: 0,
-
-                traningImages: [],
-
-                order: 0,
-
-                count: 0
+                fullsc: new Fullscreen
             }
         },
 
@@ -120,28 +112,15 @@
             },
 
             changeImage() {
-                if (this.results % 5 === 0) {
-                    this.imageSet = getRandomInt(0, this.images.length)
-                    
-                    this.order = _.shuffle( [0, 1, 2, 3, 4] )
+                this.randPhotosIndex = getRandomInt(0, this.images.length)
 
-                    this.count = 0
-                }
-
-                var randImageNum = this.order[this.count];
-                // console.log(this.order)
-                // console.log(this.order[0]);
-                // console.log(this.order[1]);
-                // console.log(this.order[2]);
-                // console.log(this.order[3]);
-                // console.log(this.order[4]);
-                // console.log(this.order[this.count]);
-
-                // let randImageNum = getRandomInt(0, this.images[this.imageSet].length)
-
-                this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][randImageNum]
-
-                this.count++
+                this.path = 
+                    this.folder + 
+                    this.compressionType + 
+                    '/' +
+                    this.images[ 
+                        this.randPhotosIndex
+                    ]
             },
 
             showInfo() {
@@ -173,11 +152,10 @@
         mounted() {
             this.images = data.images
 
-            this.imageSet = getRandomInt(0, this.images.length)
+            this.randPhotosIndex = getRandomInt(0, this.images.length)
 
-            this.order = _.shuffle( [0, 1, 2, 3, 4] )
-
-            this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][this.order[0]]
+            this.path = this.folder + this.compressionType + '/' + 
+                this.images[ this.randPhotosIndex ]
 
             if ( window.localStorage.getItem('id') === null ) {
                 axios.post('subject/store').then(function (response) {
