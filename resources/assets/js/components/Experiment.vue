@@ -152,7 +152,6 @@
                     
                     <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>
                     <ul style="margin-top: 0; font-size: 15px;">
-                        <!-- <li>You turn up the brightness of your screen as high as possible.</li> -->
                         <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>
                     </ul>
                 `
@@ -193,7 +192,6 @@
                 
                 <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>
                 <ul style="margin-top: 0; font-size: 15px;">
-                    <!-- <li>You turn up the brightness of your screen as high as possible.</li> -->
                     <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>
                 </ul>
             `
