@@ -23,11 +23,17 @@
             </div>
 
             <div class="rating-bar">
-                <button class="rate__btn" @click="submitAnswer('bad')">Bad</button>
+                <!-- <button class="rate__btn" @click="submitAnswer('bad')">Bad</button>
                 <button class="rate__btn" @click="submitAnswer('poor')">Poor</button>
                 <button class="rate__btn" @click="submitAnswer('fair')">Fair</button>
                 <button class="rate__btn" @click="submitAnswer('good')">Good</button>
-                <button class="rate__btn" @click="submitAnswer('excellent')">Excellent</button>
+                <button class="rate__btn" @click="submitAnswer('excellent')">Excellent</button> -->
+
+                <button class="rate__btn" @click="submitAnswer(1)">1</button>
+                <button class="rate__btn" @click="submitAnswer(2)">2</button>
+                <button class="rate__btn" @click="submitAnswer(3)">3</button>
+                <button class="rate__btn" @click="submitAnswer(4)">4</button>
+                <button class="rate__btn" @click="submitAnswer(5)">5</button>
             </div>
         </div>
 
