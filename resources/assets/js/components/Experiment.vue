@@ -158,7 +158,7 @@
             showInfo() {
                 this.modal.header = 'About'
                 this.modal.message = `
-                    <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
+                    <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the numbers below.<br></h3>
                     <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>
                     
                     <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>
@@ -198,7 +198,7 @@
 
             this.modal.header = 'Thank you for participating in this experiment!'
             this.modal.message = `
-                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
+                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the numbers below.<br></h3>
                 <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>
                 
                 <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>

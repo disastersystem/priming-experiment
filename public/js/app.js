@@ -47466,6 +47466,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47545,8 +47556,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         changeImage: function changeImage() {
-            // this.count++
-
             if (this.results % 5 === 0) {
                 this.imageSet = Object(__WEBPACK_IMPORTED_MODULE_0__core_functions_random__["a" /* default */])(0, this.images.length);
 
@@ -47556,7 +47565,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             var randImageNum = this.order[this.count];
-            // console.log(this.order) 
+            // console.log(this.order)
             // console.log(this.order[0]);
             // console.log(this.order[1]);
             // console.log(this.order[2]);
@@ -47567,11 +47576,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // let randImageNum = getRandomInt(0, this.images[this.imageSet].length)
 
             this.path = this.folder + this.compressionType + '/' + this.images[this.imageSet][randImageNum];
+
             this.count++;
         },
         showInfo: function showInfo() {
             this.modal.header = 'About';
-            this.modal.message = '\n                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n                <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n                \n                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>\n                <ul style="margin-top: 0; font-size: 15px;">\n                    <li>You turn up the brightness of your screen as high as possible.</li>\n                    <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n                </ul>\n            ';
+            this.modal.message = '\n                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the numbers below.<br></h3>\n                <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n                \n                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>\n                <ul style="margin-top: 0; font-size: 15px;">\n                    <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>\n                </ul>\n            ';
             this.modal.show = true;
         },
         goFullscreen: function goFullscreen() {
@@ -47601,7 +47611,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         this.modal.header = 'Thank you for participating in this experiment!';
-        this.modal.message = '\n            <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n            <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n            \n            <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>\n            <ul style="margin-top: 0; font-size: 15px;">\n                <li>You turn up the brightness of your screen as high as possible.</li>\n                <li>Enter full screen mode in your browser by hitting the button in the top right corner.</li>\n            </ul>\n        ';
+        this.modal.message = '\n            <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the numbers below.<br></h3>\n            <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n            \n            <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px; margin-top: 30px;">It would be beneficial if</p>\n            <ul style="margin-top: 0; font-size: 15px;">\n                <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>\n            </ul>\n        ';
         this.modal.show = true;
     }
 });
@@ -47917,11 +47927,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("bad")
+                  _vm.submitAnswer(1)
                 }
               }
             },
-            [_vm._v("Bad")]
+            [_vm._v("1")]
           ),
           _vm._v(" "),
           _c(
@@ -47930,11 +47940,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("poor")
+                  _vm.submitAnswer(2)
                 }
               }
             },
-            [_vm._v("Poor")]
+            [_vm._v("2")]
           ),
           _vm._v(" "),
           _c(
@@ -47943,11 +47953,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("fair")
+                  _vm.submitAnswer(3)
                 }
               }
             },
-            [_vm._v("Fair")]
+            [_vm._v("3")]
           ),
           _vm._v(" "),
           _c(
@@ -47956,11 +47966,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("good")
+                  _vm.submitAnswer(4)
                 }
               }
             },
-            [_vm._v("Good")]
+            [_vm._v("4")]
           ),
           _vm._v(" "),
           _c(
@@ -47969,11 +47979,76 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("excellent")
+                  _vm.submitAnswer(5)
                 }
               }
             },
-            [_vm._v("Excellent")]
+            [_vm._v("5")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(6)
+                }
+              }
+            },
+            [_vm._v("6")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(7)
+                }
+              }
+            },
+            [_vm._v("7")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(8)
+                }
+              }
+            },
+            [_vm._v("8")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(9)
+                }
+              }
+            },
+            [_vm._v("9")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(10)
+                }
+              }
+            },
+            [_vm._v("10")]
           )
         ])
       ]),
