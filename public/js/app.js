@@ -47466,6 +47466,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47543,7 +47554,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         showInfo: function showInfo() {
             this.modal.header = 'About';
-            this.modal.message = '\n                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>\n                <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n                \n                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>\n                <ul style="margin-top: 0; font-size: 15px;">\n                    <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>\n                </ul>\n            ';
+            this.modal.message = '\n                <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories. The test is ana<br></h3>\n                <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>\n                \n                <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>\n                <ul style="margin-top: 0; font-size: 15px;">\n                    <li>You enter full screen mode in your browser by hitting the button in the top right corner.</li>\n                </ul>\n            ';
             this.modal.show = true;
         },
         goFullscreen: function goFullscreen() {
@@ -47887,11 +47898,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("bad")
+                  _vm.submitAnswer(1)
                 }
               }
             },
-            [_vm._v("Bad")]
+            [_vm._v("1")]
           ),
           _vm._v(" "),
           _c(
@@ -47900,11 +47911,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("poor")
+                  _vm.submitAnswer(2)
                 }
               }
             },
-            [_vm._v("Poor")]
+            [_vm._v("2")]
           ),
           _vm._v(" "),
           _c(
@@ -47913,11 +47924,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("fair")
+                  _vm.submitAnswer(3)
                 }
               }
             },
-            [_vm._v("Fair")]
+            [_vm._v("3")]
           ),
           _vm._v(" "),
           _c(
@@ -47926,11 +47937,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("good")
+                  _vm.submitAnswer(4)
                 }
               }
             },
-            [_vm._v("Good")]
+            [_vm._v("4")]
           ),
           _vm._v(" "),
           _c(
@@ -47939,11 +47950,76 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("excellent")
+                  _vm.submitAnswer(5)
                 }
               }
             },
-            [_vm._v("Excellent")]
+            [_vm._v("5")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(6)
+                }
+              }
+            },
+            [_vm._v("6")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(7)
+                }
+              }
+            },
+            [_vm._v("7")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(8)
+                }
+              }
+            },
+            [_vm._v("8")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(9)
+                }
+              }
+            },
+            [_vm._v("9")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(10)
+                }
+              }
+            },
+            [_vm._v("10")]
           )
         ])
       ]),

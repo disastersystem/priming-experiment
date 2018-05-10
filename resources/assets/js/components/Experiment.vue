@@ -34,6 +34,11 @@
                 <button class="rate__btn" @click="submitAnswer(3)">3</button>
                 <button class="rate__btn" @click="submitAnswer(4)">4</button>
                 <button class="rate__btn" @click="submitAnswer(5)">5</button>
+                <button class="rate__btn" @click="submitAnswer(6)">6</button>
+                <button class="rate__btn" @click="submitAnswer(7)">7</button>
+                <button class="rate__btn" @click="submitAnswer(8)">8</button>
+                <button class="rate__btn" @click="submitAnswer(9)">9</button>
+                <button class="rate__btn" @click="submitAnswer(10)">10</button>
             </div>
         </div>
 
@@ -124,7 +129,7 @@
                     this.folder + 
                     this.compressionType + 
                     '/' +
-                    this.images[ 
+                    this.images[
                         this.randPhotosIndex
                     ]
             },
@@ -132,7 +137,7 @@
             showInfo() {
                 this.modal.header = 'About'
                 this.modal.message = `
-                    <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories.<br></h3>
+                    <h3 style="margin-bottom: 0;">Rate the quality of the image by selecting one of the 5 categories. The test is ana<br></h3>
                     <p style="margin-top: 5px; padding-top: 0;">The first 5 images are training images and will not count.</p>
                     
                     <p style="margin-bottom: 0; padding-bottom: 0; font-size: 15px;">It would be beneficial if</p>
