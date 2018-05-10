@@ -17,7 +17,7 @@ class CreateAnswersTable extends Migration
             $table->increments('id');
 
             $table->string('image', 100);
-            $table->string('answer', 100);
+            $table->integer('answer');
             $table->string('subject', 100);
 
             $table->timestamps();
