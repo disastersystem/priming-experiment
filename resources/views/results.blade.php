@@ -88,7 +88,7 @@
                 'final19_d2_l5' => 55
             ];
 
-            $categories = ['bad' => 1, 'poor' => 2, 'fair' => 3, 'good' => 4, 'excellent' => 5];
+            // $categories = ['bad' => 1, 'poor' => 2, 'fair' => 3, 'good' => 4, 'excellent' => 5];
 
             foreach ($answers as $answer) {
                 $path_parts = pathinfo($answer->image);
@@ -99,12 +99,12 @@
                     }
                 }
                 
-                $ans = $categories[$answer->answer];
+                // $ans = $categories[$answer->answer];
 
                 echo "<div>"
                         . $answer->id . 
                     ' ' . $path_parts['filename'] . 
-                    ' ' . $ans . 
+                    ' ' . $answer->answer . 
                     ' ' . $answer->subject . 
                 '</div>';
             }
