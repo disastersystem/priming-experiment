@@ -54,9 +54,10 @@
             }
 
             .rate__btn {
-                padding: 10px 5px;
-                width: 50px;
+                padding: 10px 15px;
+                width: 150px;
                 cursor: pointer;
+                margin: 1px;
             }
 
             .rate__btn:hover {

@@ -23,13 +23,13 @@
             </div>
 
             <div class="rating-bar">
-                <!-- <button class="rate__btn" @click="submitAnswer('bad')">Bad</button>
+                <button class="rate__btn" @click="submitAnswer('bad')">Bad</button>
                 <button class="rate__btn" @click="submitAnswer('poor')">Poor</button>
                 <button class="rate__btn" @click="submitAnswer('fair')">Fair</button>
                 <button class="rate__btn" @click="submitAnswer('good')">Good</button>
-                <button class="rate__btn" @click="submitAnswer('excellent')">Excellent</button> -->
+                <button class="rate__btn" @click="submitAnswer('excellent')">Excellent</button>
 
-                <button class="rate__btn" @click="submitAnswer(1)">1</button>
+                <!-- <button class="rate__btn" @click="submitAnswer(1)">1</button>
                 <button class="rate__btn" @click="submitAnswer(2)">2</button>
                 <button class="rate__btn" @click="submitAnswer(3)">3</button>
                 <button class="rate__btn" @click="submitAnswer(4)">4</button>
@@ -38,7 +38,7 @@
                 <button class="rate__btn" @click="submitAnswer(7)">7</button>
                 <button class="rate__btn" @click="submitAnswer(8)">8</button>
                 <button class="rate__btn" @click="submitAnswer(9)">9</button>
-                <button class="rate__btn" @click="submitAnswer(10)">10</button>
+                <button class="rate__btn" @click="submitAnswer(10)">10</button> -->
             </div>
         </div>
 
@@ -251,5 +251,10 @@
         bottom: 0;
         padding: 30px;
         z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        left: 0;
+        right: 0;
     }
 </style>

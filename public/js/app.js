@@ -47376,7 +47376,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.top-bar[data-v-26b44034] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    color: #000;\n    font-weight: bold;\n    padding: 20px;\n    position: fixed;\n    top: 0;\n    right: 0;\n    /*width: 50%;*/\n    left: 0;\n    z-index: 10;\n}\n.info__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n}\n.fullscreen__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n    margin-left: 40px;\n}\n.rating-bar[data-v-26b44034] {\n    position: fixed;\n    bottom: 0;\n    padding: 30px;\n    z-index: 10;\n}\n", ""]);
+exports.push([module.i, "\n.top-bar[data-v-26b44034] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    color: #000;\n    font-weight: bold;\n    padding: 20px;\n    position: fixed;\n    top: 0;\n    right: 0;\n    /*width: 50%;*/\n    left: 0;\n    z-index: 10;\n}\n.info__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n}\n.fullscreen__btn[data-v-26b44034] {\n    padding: 2px;\n    font-weight: bold;\n    background-color: #e1e1e1;\n    border: none;\n    outline: 0;\n    cursor: pointer;\n    margin-left: 40px;\n}\n.rating-bar[data-v-26b44034] {\n    position: fixed;\n    bottom: 0;\n    padding: 30px;\n    z-index: 10;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    left: 0;\n    right: 0;\n}\n", ""]);
 
 // exports
 
@@ -47793,7 +47793,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask[data-v-2c928174] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    -webkit-transition: opacity .3s ease;\n    transition: opacity .3s ease;\n}\n.modal-wrapper[data-v-2c928174] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-container[data-v-2c928174] {\n    width: 600px;\n    margin: 0px auto;\n    padding: 20px 30px;\n    background-color: #fff;\n    border-radius: 2px;\n    -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n            box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    -webkit-transition: all .3s ease;\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header[data-v-2c928174] {\n    margin-top: 0;\n    color: #42b983;\n}\n.modal-body[data-v-2c928174] {\n    margin: 20px 0;\n    line-height: 1.5em;\n}\n.modal-footer[data-v-2c928174] {\n    margin: 60px 0 8px 0;\n    text-align: right;\n}\n.modal-default-button[data-v-2c928174] {\n    padding: 12px 20px;\n    background: rgb(66, 185, 131); /*rgb(80, 175, 0);*/\n    border: 0;\n    cursor: pointer;\n    color: #fff;\n    font-size: 17px;\n    letter-spacing: 1px;\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask[data-v-2c928174] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    -webkit-transition: opacity .3s ease;\n    transition: opacity .3s ease;\n}\n.modal-wrapper[data-v-2c928174] {\n    display: table-cell;\n    vertical-align: middle;\n}\n.modal-container[data-v-2c928174] {\n    width: 500px;\n    margin: 0px auto;\n    padding: 20px 30px;\n    background-color: #fff;\n    border-radius: 2px;\n    -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n            box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    -webkit-transition: all .3s ease;\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header[data-v-2c928174] {\n    margin-top: 0;\n    color: #42b983;\n}\n.modal-body[data-v-2c928174] {\n    margin: 20px 0;\n    line-height: 1.5em;\n}\n.modal-footer[data-v-2c928174] {\n    margin: 60px 0 8px 0;\n    text-align: right;\n}\n.modal-default-button[data-v-2c928174] {\n    padding: 12px 20px;\n    background: rgb(66, 185, 131); /*rgb(80, 175, 0);*/\n    border: 0;\n    cursor: pointer;\n    color: #fff;\n    font-size: 17px;\n    letter-spacing: 1px;\n}\n", ""]);
 
 // exports
 
@@ -47927,11 +47927,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer(1)
+                  _vm.submitAnswer("bad")
                 }
               }
             },
-            [_vm._v("1")]
+            [_vm._v("Bad")]
           ),
           _vm._v(" "),
           _c(
@@ -47940,11 +47940,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer(2)
+                  _vm.submitAnswer("poor")
                 }
               }
             },
-            [_vm._v("2")]
+            [_vm._v("Poor")]
           ),
           _vm._v(" "),
           _c(
@@ -47953,11 +47953,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer(3)
+                  _vm.submitAnswer("fair")
                 }
               }
             },
-            [_vm._v("3")]
+            [_vm._v("Fair")]
           ),
           _vm._v(" "),
           _c(
@@ -47966,11 +47966,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer(4)
+                  _vm.submitAnswer("good")
                 }
               }
             },
-            [_vm._v("4")]
+            [_vm._v("Good")]
           ),
           _vm._v(" "),
           _c(
@@ -47979,76 +47979,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer(5)
+                  _vm.submitAnswer("excellent")
                 }
               }
             },
-            [_vm._v("5")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "rate__btn",
-              on: {
-                click: function($event) {
-                  _vm.submitAnswer(6)
-                }
-              }
-            },
-            [_vm._v("6")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "rate__btn",
-              on: {
-                click: function($event) {
-                  _vm.submitAnswer(7)
-                }
-              }
-            },
-            [_vm._v("7")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "rate__btn",
-              on: {
-                click: function($event) {
-                  _vm.submitAnswer(8)
-                }
-              }
-            },
-            [_vm._v("8")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "rate__btn",
-              on: {
-                click: function($event) {
-                  _vm.submitAnswer(9)
-                }
-              }
-            },
-            [_vm._v("9")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "rate__btn",
-              on: {
-                click: function($event) {
-                  _vm.submitAnswer(10)
-                }
-              }
-            },
-            [_vm._v("10")]
+            [_vm._v("Excellent")]
           )
         ])
       ]),
