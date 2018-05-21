@@ -65,10 +65,7 @@
                 /*outline: rgb(0, 166, 255);*/
             }
 
-            /************************
-                Animation styles.
-            ************************/
-
+            /** Animation styles. */
             .modal-enter {
                 opacity: 0;
             }
