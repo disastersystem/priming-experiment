@@ -47927,11 +47927,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("bad")
+                  _vm.submitAnswer(1)
                 }
               }
             },
-            [_vm._v("Bad")]
+            [_vm._v("1")]
           ),
           _vm._v(" "),
           _c(
@@ -47940,11 +47940,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("poor")
+                  _vm.submitAnswer(2)
                 }
               }
             },
-            [_vm._v("Poor")]
+            [_vm._v("2")]
           ),
           _vm._v(" "),
           _c(
@@ -47953,11 +47953,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("fair")
+                  _vm.submitAnswer(3)
                 }
               }
             },
-            [_vm._v("Fair")]
+            [_vm._v("3")]
           ),
           _vm._v(" "),
           _c(
@@ -47966,11 +47966,11 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("good")
+                  _vm.submitAnswer(4)
                 }
               }
             },
-            [_vm._v("Good")]
+            [_vm._v("4")]
           ),
           _vm._v(" "),
           _c(
@@ -47979,11 +47979,76 @@ var render = function() {
               staticClass: "rate__btn",
               on: {
                 click: function($event) {
-                  _vm.submitAnswer("excellent")
+                  _vm.submitAnswer(5)
                 }
               }
             },
-            [_vm._v("Excellent")]
+            [_vm._v("5")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(6)
+                }
+              }
+            },
+            [_vm._v("6")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(7)
+                }
+              }
+            },
+            [_vm._v("7")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(8)
+                }
+              }
+            },
+            [_vm._v("8")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(9)
+                }
+              }
+            },
+            [_vm._v("9")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "rate__btn",
+              on: {
+                click: function($event) {
+                  _vm.submitAnswer(10)
+                }
+              }
+            },
+            [_vm._v("10")]
           )
         ])
       ]),
