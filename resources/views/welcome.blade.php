@@ -55,7 +55,7 @@
 
             .rate__btn {
                 padding: 10px 15px;
-                width: 150px;
+                width: 70px;
                 cursor: pointer;
                 margin: 1px;
             }
