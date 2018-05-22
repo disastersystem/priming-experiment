@@ -109,13 +109,16 @@
                         if (response.data == 'saved') {
                             
                             if (vm.results == vm.total) {
-                                vm.modal.header = 'You have completed ' + vm.total + ' images!'
+                                // vm.modal.header = 'You have completed ' + vm.total + ' images!'
+                                vm.modal.header = "You're done! Thank you very much."
                                 vm.modal.message = `
-                                    It would be greatly appreciated if you would do even more.
-                                    You can quit at any time by simply closing the browser tab!'
+                                    You can close the browser tab whenever you want.
                                 `
                                 vm.modal.show = true
-                                vm.total += 50
+                                // vm.total += 50
+                                document.querySelector('.image-container').style.display = 'none'
+                                document.querySelector('.rating-bar').style.display = 'none'
+                                // document.querySelector('.modal-footer').style.display = 'none'
 
                                 vm.changeImage()
                             } else {

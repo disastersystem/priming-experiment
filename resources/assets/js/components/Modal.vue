@@ -14,7 +14,7 @@
                     <div class="modal-footer">
                         <slot name="footer">
                             <button class="modal-default-button" @click="$emit('close')">
-                                Begin
+                                Close
                             </button>
                         </slot>
                     </div>

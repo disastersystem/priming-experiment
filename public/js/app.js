@@ -47538,10 +47538,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (response.data == 'saved') {
 
                         if (vm.results == vm.total) {
-                            vm.modal.header = 'You have completed ' + vm.total + ' images!';
-                            vm.modal.message = '\n                                It would be greatly appreciated if you would do even more.\n                                You can quit at any time by simply closing the browser tab!\'\n                            ';
+                            // vm.modal.header = 'You have completed ' + vm.total + ' images!'
+                            vm.modal.header = "You're done! Thank you very much.";
+                            vm.modal.message = '\n                                You can close the browser tab whenever you want.\n                            ';
                             vm.modal.show = true;
-                            vm.total += 50;
+                            // vm.total += 50
+                            document.querySelector('.image-container').style.display = 'none';
+                            document.querySelector('.rating-bar').style.display = 'none';
+                            // document.querySelector('.modal-footer').style.display = 'none'
 
                             vm.changeImage();
                         } else {
@@ -47831,7 +47835,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Begin\n                        "
+                      "\n                            Close\n                        "
                     )
                   ]
                 )
